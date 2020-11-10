@@ -3,89 +3,67 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>Team-B</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <h1>eRace</h1>
+        <p class="lead">This is a team project based on eRace database.</p>
+        <img src="logo.png" alt="Team Best logo" />
+        <br />
+        <br />
+        <p><a href="https://dmit-2018.github.io/eRace/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
     <div class="row">
-        <div class="row">
-            <div class="offset-1">
-                <h2>Wanlun Xue</h2>
-                <h3>Receiving Subsystem Scenario</h3>
-                <section>
-                    <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
-                    </div>
-                </section>
-                <p>
-                <a class="btn btn-default" href="SubSystems/Receiving/Default.aspx">Receiving Page &raquo;</a>
-            </p>
-            </div>
+        <div class="col-md-4">
+            <h2>Ian J Ghettuba</h2>
+            <p><b>Sales Subsystem</b></p>
+            <p>Setup/Security Responsibilities</p>
+            <ul>
+                <li>Complete ReadMe file</li>
+                <li>Create VS solution</li>
+                <li>Create subfolders</li>
+                <li>Edit Default Page</li>
+            </ul>
+            <p>Known bug list</p>
+            <ul>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+            </ul>
+            <a class="btn btn-default" href="SubSystems/Sales/Default.aspx">Sales Page &raquo;</a>
         </div>
-        <div class="row">
-             <div class="offset-1">
-                <h2>Jing Di</h2>
-                <h3>Purchasing Subsystem Scenario</h3>
-                <section>
-                    <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
-                    </div>
-                </section>
-                <p>
-                    <a class="btn btn-default" href="SubSystems/Purchasing/Default.aspx">Purchasing Page &raquo;</a>
-                </p>
-             </div>   
+        <div class="col-md-4">
+            <h2>Jing Di</h2>
+            <p><b>Purchasing Subsystem</b></p>
+            <p>Setup/Security Responsibilities</p>
+            <ul>
+                <li>Edit gitIgnore</li>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+            </ul>
+            <p>Known bug list</p>
+            <ul>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+            </ul>
+            <a class="btn btn-default" href="SubSystems/Purchasing/Default.aspx">Purchasing Page &raquo;</a>
         </div>
-        <div class="row">
-            <div class="offset-1">
-                <h2>Ian Ghettuba</h2>
-                <h3>Sales Subsystem Scenario</h3>
-                <section>
-                    <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
-                    </div>
-                </section>
-                <p>
-                    <a class="btn btn-default" href="SubSystems/Sales/Default.aspx">Sales Page &raquo;</a>
-                </p>
-            </div>
-           
-            
+        <div class="col-md-4">
+            <h2>Wanlun Xue</h2>
+            <p><b>Receiving subsystem</b></p>
+            <p>Setup/Security Responsibilities</p>
+            <ul>
+                <li>Cet up webpage for subfolders</li>
+                <li>Create Team Logo</li>
+                <li>Edit Default page</li>
+            </ul>
+            <p>Known bug list</p>
+            <ul>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+                <li>to be filled in</li>
+            </ul>
+            <a class="btn btn-default" href="SubSystems/Receiving/Default.aspx">Receiving Page &raquo;</a>
         </div>
-    </div>
+</div>       
 
 </asp:Content>
