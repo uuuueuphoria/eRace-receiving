@@ -97,12 +97,20 @@
                                         id="navbarSubMenu" data-toggle="dropdown" 
                                         runat="server" style="color:black"
                                         aria-haspopup="true" aria-expanded="false"> 
-                                    Samples</a>
+                                    Subsystems</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarSubMenu">
                                     <a class="dropdown-item"
-                                            href="~/SamplePages/TestPage.aspx"
+                                            href="~/SubSystems/Purchasing/Default.aspx"
                                             style="color:black" runat="server">
-                                       RadioButtons</a>
+                                       Purchasing Subsystem</a>
+                                    <a class="dropdown-item"
+                                            href="~/SubSystems/Receiving/Default.aspx"
+                                            style="color:black" runat="server">
+                                       Receiving Subsystem</a>
+                                    <a class="dropdown-item"
+                                            href="~/SubSystems/Sales/Default.aspx"
+                                            style="color:black" runat="server">
+                                       Sales Subsystem</a>
                                 </div>
                              </li>
                              <li class="nav-item">
