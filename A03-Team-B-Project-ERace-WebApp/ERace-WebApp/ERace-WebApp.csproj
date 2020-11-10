@@ -473,6 +473,9 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="SubSystems\Purchasing\Dummy3.cs" />
+    <Compile Include="SubSystems\Receiving\Dummy2.cs" />
+    <Compile Include="SubSystems\Sales\Dummy1.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
