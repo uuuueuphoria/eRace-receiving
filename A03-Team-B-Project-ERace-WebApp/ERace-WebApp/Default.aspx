@@ -3,9 +3,10 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>eRace</h1>
-        <p class="lead">This is a team project based on eRace database.</p>
-        <img src="logo.png" alt="Team Best logo" />
+        <h1>Team B</h1>
+        <asp:Image ID="Image1" runat="server" src="logo.png" Height="191px" Width="218px"/>
+        <p class="lead">Welcome to Team B Project. We are Wanlun, Jing and Ian.</p>
+        <p>This is the E-Race Web Application:</p>
         <br />
         <br />
         <p><a href="https://dmit-2018.github.io/eRace/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
