@@ -1,17 +1,12 @@
 ﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="ERace_WebApp.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+    <h2>Team B</h2>
+    <h3>Contact</h3>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+   <address>
+        <strong>Wanlun Xue</strong>   <a href="mailto:wanlun@ualberta.ca">wanlun@ualberta.ca</a><br />
+       <strong>Ian J Ghettuba</strong>   <a href="mailto:ighettuba1@studentmail.nait.ca">ighettuba1@studentmail.nait.ca</a><br />
+        <strong>Jing Di</strong> <a href="mailto:jdi3@studentmail.nait.ca">jdi3@studentmail.nait.ca</a>
     </address>
 </asp:Content>
