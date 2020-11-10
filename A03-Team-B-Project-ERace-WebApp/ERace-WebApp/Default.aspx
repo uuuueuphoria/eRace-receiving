@@ -17,18 +17,21 @@
                 <h3>Receiving Subsystem Scenario</h3>
                 <section>
                     <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
+                        <ul>
+                            <li>Setup</li>
+                            <li>Security Responsibilities</li>
+                            <li>
+                                <ul>Known Bugs list
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </li>
+                        </ul>
+                       
                     </div>
                 </section>
                 <p>
@@ -42,18 +45,21 @@
                 <h3>Purchasing Subsystem Scenario</h3>
                 <section>
                     <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
+                        <ul>
+                            <li>Setup</li>
+                            <li>Security Responsibilities</li>
+                            <li>
+                                <ul>Known Bugs list
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </li>
+                        </ul>
+                       
                     </div>
                 </section>
                 <p>
@@ -67,18 +73,21 @@
                 <h3>Sales Subsystem Scenario</h3>
                 <section>
                     <div class="row">
-                        <p>Setup</p>
-                        <p>Security Responsibilities</p>
-                        <p>
-                            <ul>Known Bugs list
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </p>
+                        <ul>
+                            <li>Setup</li>
+                            <li>Security Responsibilities</li>
+                            <li>
+                                <ul>Known Bugs list
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </li>
+                        </ul>
+                       
                     </div>
                 </section>
                 <p>
