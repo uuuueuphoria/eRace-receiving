@@ -4,7 +4,9 @@
 
     <div class="jumbotron">
         <h1>Team-B</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+        <asp:Image ID="Image1" runat="server" src="logo.png" Height="191px" Width="218px"/>
+        <p class="lead">Welcome to Team B Project. We are Wanlun, Jing and Ian.</p>
+        <p>This is the E-Race Web Application:</p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
