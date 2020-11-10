@@ -36,7 +36,7 @@
             <p><b>Purchasing Subsystem</b></p>
             <p>Setup/Security Responsibilities</p>
             <ul>
-                <li>Edit gitIgnore</li>
+                <li>Edit gitignore</li>
                 <li>to be filled in</li>
                 <li>to be filled in</li>
             </ul>
@@ -53,9 +53,10 @@
             <p><b>Receiving subsystem</b></p>
             <p>Setup/Security Responsibilities</p>
             <ul>
-                <li>Cet up webpage for subfolders</li>
+                <li>Set up webpage for subfolders</li>
                 <li>Create Team Logo</li>
-                <li>Edit Default page</li>
+                <li>Edit Default page, Contact pages</li>
+                <li>Navigation on Site Master</li>
             </ul>
             <p>Known bug list</p>
             <ul>
