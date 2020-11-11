@@ -57,6 +57,7 @@
                 <li>Create Team Logo</li>
                 <li>Edit Default page, Contact pages</li>
                 <li>Navigation on Site Master</li>
+                <li>Reverse Engineering database</li>
             </ul>
             <p>Known bug list</p>
             <ul>
