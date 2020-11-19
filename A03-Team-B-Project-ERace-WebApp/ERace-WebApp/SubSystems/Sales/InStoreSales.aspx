@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InStoreSales.aspx.cs" Inherits="ERace_WebApp.SubSystems.Sales.InStoreSales" %>
+﻿<%@ Page Title="InStore Sales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InStoreSales.aspx.cs" Inherits="ERace_WebApp.SubSystems.Sales.InStoreSales" %>
 
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
@@ -16,6 +16,13 @@
         <div class="offset-1">
             <%--Add MessageUserControl--%>
             <uc1:MessageUserControl runat="server" id="MessageUserControl" />
+        </div>
+        <div class="col-md-6">
+            <h3>Purchases</h3>
+            <asp:DropDownList ID="CategoryDDL" runat="server">
+                <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
+            </asp:DropDownList>
+            <asp:ObjectDataSource ID="CategoryODS" runat="server"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>

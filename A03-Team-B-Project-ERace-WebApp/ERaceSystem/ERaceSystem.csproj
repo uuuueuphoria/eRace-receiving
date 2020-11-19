@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\dummy.cs" />
+    <Compile Include="BLL\CategoryController.cs" />
     <Compile Include="BLL\Purchasing\dummy.cs" />
     <Compile Include="BLL\Receiving\dummy.cs" />
     <Compile Include="BLL\Sales\InvoiceController.cs" />
@@ -238,9 +238,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BLL\SharedBLL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

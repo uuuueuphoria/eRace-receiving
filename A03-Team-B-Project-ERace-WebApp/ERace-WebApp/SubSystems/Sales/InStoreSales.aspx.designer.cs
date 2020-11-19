@@ -40,5 +40,23 @@ namespace ERace_WebApp.SubSystems.Sales
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DMIT2018Common.UserControls.MessageUserControl MessageUserControl;
+
+        /// <summary>
+        /// CategoryDDL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList CategoryDDL;
+
+        /// <summary>
+        /// CategoryODS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource CategoryODS;
     }
 }
