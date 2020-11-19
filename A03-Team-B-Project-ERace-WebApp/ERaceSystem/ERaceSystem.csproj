@@ -70,6 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\dummy.cs" />
+    <Compile Include="BLL\Purchasing\dummy.cs" />
+    <Compile Include="BLL\Receiving\dummy.cs" />
+    <Compile Include="BLL\Sales\InvoiceController.cs" />
+    <Compile Include="BLL\Sales\InvoiceDetailController.cs" />
+    <Compile Include="BLL\Sales\ProductController.cs" />
+    <Compile Include="BLL\Sales\StoreRefundController.cs" />
+    <Compile Include="BLL\BusinessRuleException.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\CarClass.cs" />
@@ -97,7 +104,13 @@
     <Compile Include="Entities\Vendor.cs" />
     <Compile Include="Entities\VendorCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\dummy.cs" />
+    <Compile Include="ViewModels\Purchasing\dummy.cs" />
+    <Compile Include="ViewModels\Receiving\dummy.cs" />
+    <Compile Include="ViewModels\Sales\InvoiceItem.cs" />
+    <Compile Include="ViewModels\Sales\InvoiceList.cs" />
+    <Compile Include="ViewModels\Sales\ProductItem.cs" />
+    <Compile Include="ViewModels\Sales\SelectionList.cs" />
+    <Compile Include="ViewModels\Sales\StoreRefund.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -224,6 +237,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BLL\SharedBLL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -22,6 +22,8 @@
                 <li>Create VS solution</li>
                 <li>Create subfolders</li>
                 <li>Edit Default Page</li>
+                <li>Created BusinessRuleException class</li>
+
             </ul>
             <p>Known bug list</p>
             <ul>

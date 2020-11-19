@@ -310,6 +310,9 @@
     <Content Include="SubSystems\Purchasing\Default.aspx" />
     <Content Include="SubSystems\Receiving\Default.aspx" />
     <Content Include="SubSystems\Sales\Default.aspx" />
+    <Content Include="SubSystems\Sales\InStoreSales.aspx" />
+    <Content Include="SubSystems\Sales\ReturnRefunds.aspx" />
+    <Content Include="UserControls\MessageUserControl.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -497,6 +500,27 @@
     </Compile>
     <Compile Include="SubSystems\Sales\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubSystems\Sales\InStoreSales.aspx.cs">
+      <DependentUpon>InStoreSales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubSystems\Sales\InStoreSales.aspx.designer.cs">
+      <DependentUpon>InStoreSales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubSystems\Sales\ReturnRefunds.aspx.cs">
+      <DependentUpon>ReturnRefunds.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubSystems\Sales\ReturnRefunds.aspx.designer.cs">
+      <DependentUpon>ReturnRefunds.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MessageUserControl.ascx.cs">
+      <DependentUpon>MessageUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MessageUserControl.ascx.designer.cs">
+      <DependentUpon>MessageUserControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
