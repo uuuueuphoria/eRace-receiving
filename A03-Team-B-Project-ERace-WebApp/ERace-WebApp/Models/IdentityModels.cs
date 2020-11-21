@@ -8,11 +8,26 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ERace_WebApp.Models;
 
+#region Additional namespaces
+using System.Data.Entity; // needed for the extension method .SetInitializer()
+using ERace_WebApp.Security;
+
+#endregion
+
 namespace ERace_WebApp.Models
 {
     // You can add User data for the user by adding more properties to your User class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        #region Custom Properties
+        //When your application is run for the first time with
+        //    security implemented, the ASp.Net Identity classes
+        //    will create specific tables database for your use
+        //One of these tables represents data about the user
+        //You CAN add you OWN customer properties to this table
+        public int? EmployeeId { get; set; }
+
+        #endregion
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -32,6 +47,7 @@ namespace ERace_WebApp.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer<ApplicationDbContext>(new SecurityDbContextInitializer());
         }
 
         public static ApplicationDbContext Create()

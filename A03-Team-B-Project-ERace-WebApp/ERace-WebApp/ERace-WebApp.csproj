@@ -306,6 +306,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Security\SecurityManagement.aspx" />
     <Content Include="Site.Master" />
     <Content Include="SubSystems\Purchasing\Default.aspx" />
     <Content Include="SubSystems\Receiving\Default.aspx" />
@@ -328,6 +329,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="WebConnectionStrings.config" />
+    <Content Include="WebAppSettings.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
@@ -465,6 +467,15 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityController.cs" />
+    <Compile Include="Security\SecurityDBContextInitializer.cs" />
+    <Compile Include="Security\SecurityManagement.aspx.cs">
+      <DependentUpon>SecurityManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Security\SecurityManagement.aspx.designer.cs">
+      <DependentUpon>SecurityManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
