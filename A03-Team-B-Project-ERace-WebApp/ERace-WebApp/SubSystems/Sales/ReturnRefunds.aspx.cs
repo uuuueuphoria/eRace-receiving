@@ -18,7 +18,7 @@ namespace ERace_WebApp.SubSystems.Sales
             //are you logged in?
             if (Request.IsAuthenticated)
             {
-                if (User.IsInRole("Customers"))
+                if (User.IsInRole("Clerk"))
                 {
 
                     //obtain the CustomerId on the security User record
@@ -35,7 +35,7 @@ namespace ERace_WebApp.SubSystems.Sales
                         if (item == null)
                         {
                             LoggedUser.Text = "Unknown";
-                            throw new Exception("Logged customer cannot be found on file ");
+                            throw new Exception("Logged employee cannot be found on file ");
                         }
                         else
                         {
@@ -45,7 +45,7 @@ namespace ERace_WebApp.SubSystems.Sales
                 }
                 else
                 {
-                    Response.Redirect("~/SamplePages/AccessDenied.aspx");
+                    Response.Redirect("~/SubSystems/Sales/AccessDenied.aspx.aspx");
                 }
             }
             else

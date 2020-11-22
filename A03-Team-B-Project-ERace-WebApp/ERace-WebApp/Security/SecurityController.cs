@@ -1,7 +1,5 @@
 ﻿using ERace_WebApp.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +11,6 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin; // for the .GetOwinContext() extension method
-using ERace_WebApp.Models;
 
 namespace ERace_WebApp.Security
 {

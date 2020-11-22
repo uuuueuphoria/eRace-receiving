@@ -73,7 +73,7 @@ namespace ERace_WebApp.Security
 
             //Add Clerk employee
             employeeUser = "Kevin Beecham";
-            employeeRole = "OfficeManager";
+            employeeRole = "Office Manager";
             employeeEmail = "Kevin.Beecham@ERace.ca";
             employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
             employeeid = 26;

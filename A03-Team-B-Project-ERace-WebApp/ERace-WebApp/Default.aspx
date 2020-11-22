@@ -18,11 +18,12 @@
             <p><b>Sales Subsystem</b></p>
             <p>Setup/Security Responsibilities</p>
             <ul>
-                <li>Complete ReadMe file</li>
-                <li>Create VS solution</li>
-                <li>Create subfolders</li>
-                <li>Edit Default Page</li>
+                <li>Completed ReadMe file</li>
+                <li>Created VS solution</li>
+                <li>Created subfolders</li>
+                <li>Ediedt Default Page</li>
                 <li>Created BusinessRuleException class</li>
+                <li>Added Web Application Security</li>
 
             </ul>
             <p>Known bug list</p>
