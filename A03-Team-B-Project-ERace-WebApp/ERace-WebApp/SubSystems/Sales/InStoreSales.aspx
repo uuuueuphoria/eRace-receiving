@@ -19,6 +19,12 @@
         </div>
         <div class="col-md-6">
             <h3>Purchases</h3>
+             <div class="row">
+         <a class="btn btn-default" href="Default.aspx">Default Page &raquo;</a>
+    </div>
+            <div class="row">
+         <a class="btn btn-default" href="ReturnRefunds.aspx">Return/Refunds Page &raquo;</a>
+    </div>
             <asp:DropDownList ID="CategoryDDL" runat="server">
                 <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
             </asp:DropDownList>
