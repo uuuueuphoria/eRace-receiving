@@ -2,12 +2,14 @@
 using ERaceSystem.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ERaceSystem.BLL
 {
+    [DataObject]
     public class EmployeeController
     {
         public EmployeeItem Employee_FindByID(int employeeid)
@@ -35,6 +37,24 @@ namespace ERaceSystem.BLL
                 return item;
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<EmployeeList> Employee_ListNames()
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var employeelist = from x in context.Employees
+                                   orderby  x.FirstName, x.LastName
+                                   select new EmployeeList
+                                   {
+                                       DisplayText = x.FirstName + ", " + x.LastName,
+                                       ValueId = x.EmployeeID,
+                                       Position = x.PositionID
+                                   };
+                return employeelist.ToList();
+            }
+        }
+
 
     }
 }

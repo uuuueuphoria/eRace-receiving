@@ -57,8 +57,10 @@ namespace ERace_WebApp.Security
                 userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
 
             //Add Clerk employee
-             employeeUser = "Marceau Serat";
-             employeeRole = ConfigurationManager.AppSettings["clerkRole"];
+             //employeeLast = "Serat";
+            //employeeFirst = "Marceau";
+            employeeUser = "Marceau Serat";
+            employeeRole = ConfigurationManager.AppSettings["clerkRole"];
              employeeEmail = "Marceau.Serat@ERace.ca";
              employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
              employeeid = 37;
@@ -103,7 +105,6 @@ namespace ERace_WebApp.Security
 
             #endregion
 
-            // ... etc. ...
 
             base.Seed(context);
         }

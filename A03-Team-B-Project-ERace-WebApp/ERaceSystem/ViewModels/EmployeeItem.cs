@@ -20,4 +20,11 @@ namespace ERaceSystem.ViewModels
         public DateTime BirthDate { get; set; }
         public string SocialInsuranceNumber { get; set; }
     }
+    public class EmployeeList
+    {
+        public int ValueId { get; set; }
+        public string DisplayText { get; set; }
+        public int Position { get; set; }
+
+    }
 }
