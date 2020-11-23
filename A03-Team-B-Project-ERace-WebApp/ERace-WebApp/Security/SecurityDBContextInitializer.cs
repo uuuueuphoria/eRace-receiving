@@ -42,7 +42,7 @@ namespace ERace_WebApp.Security
                 userManager.AddToRole(userManager.FindByName(adminUser).Id, adminRole);
 
             //Add Food Service employee
-            string employeeUser = "Marla Kreeg";
+            string employeeUser = "MarlaKreeg";
             string employeeRole = ConfigurationManager.AppSettings["foodServiceRole"];
             string employeeEmail = "Marla.Kreeg@ERace.ca";
             string employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
@@ -59,7 +59,7 @@ namespace ERace_WebApp.Security
             //Add Clerk employee
              //employeeLast = "Serat";
             //employeeFirst = "Marceau";
-            employeeUser = "Marceau Serat";
+            employeeUser = "MarceauSerat";
             employeeRole = ConfigurationManager.AppSettings["clerkRole"];
              employeeEmail = "Marceau.Serat@ERace.ca";
              employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
@@ -74,7 +74,7 @@ namespace ERace_WebApp.Security
                 userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
 
             //Add Office Manager employee
-            employeeUser = "Kevin Beecham";
+            employeeUser = "KevinBeecham";
             employeeRole = ConfigurationManager.AppSettings["officeManagerRole"];
             employeeEmail = "Kevin.Beecham@ERace.ca";
             employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
@@ -89,7 +89,7 @@ namespace ERace_WebApp.Security
                 userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
 
             //Add Director employee
-            employeeUser = "Ishrat Imsri";
+            employeeUser = "IshratImsri";
             employeeRole = ConfigurationManager.AppSettings["directorRole"];
             employeeEmail = "Ishrat.Imsri@ERace.ca";
             employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
