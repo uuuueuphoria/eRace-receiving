@@ -86,6 +86,21 @@ namespace ERace_WebApp.Security
             if (result.Succeeded)
                 userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
 
+            //Add Director employee
+            employeeUser = "Ishrat Imsri";
+            employeeRole = ConfigurationManager.AppSettings["directorRole"];
+            employeeEmail = "Ishrat.Imsri@ERace.ca";
+            employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
+            employeeid = 15;
+            result = userManager.Create(new ApplicationUser
+            {
+                UserName = employeeUser,
+                Email = employeeEmail,
+                EmployeeId = employeeid
+            }, employeePassword);
+            if (result.Succeeded)
+                userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
+
             #endregion
 
             // ... etc. ...
