@@ -10,7 +10,7 @@
             <headertemplate>
                 <ul>
             </headertemplate>
-<itemtemplate>
+            <itemtemplate>
                 <li><%# Eval("Error") %></li>
             </itemtemplate>
             <footertemplate>
