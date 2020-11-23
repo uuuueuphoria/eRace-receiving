@@ -12,7 +12,8 @@
     <add name="DefaultConnection" 
        connectionString="Data Source=.;Initial Catalog=eRace;Integrated Security=True"
        providerName="System.Data.SqlClient" />
-    </connectionStrings>
+    </connectionStrings>";
+    
     <br />
     <br />
     <h3>Security login settings</h3>
