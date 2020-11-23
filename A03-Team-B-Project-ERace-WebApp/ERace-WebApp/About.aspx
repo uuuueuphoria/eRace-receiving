@@ -17,22 +17,27 @@
     <br />
     <h3>Security login settings</h3>
     <ul>
+        <li>Role: </li>
         <li>User Name: </li>
         <li>Password: </li>
     </ul>
     <ul>
+        <li>Role: </li>
         <li>User Name: </li>
         <li>Password: </li>
     </ul>
     <ul>
+        <li>Role: </li>
         <li>User Name: </li>
         <li>Password: </li>
     </ul>
     <ul>
+        <li>Role: </li>
         <li>User Name: </li>
         <li>Password: </li>
     </ul>
     <ul>
+        <li>Role: </li>
         <li>User Name: </li>
         <li>Password: </li>
     </ul>
