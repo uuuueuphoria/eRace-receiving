@@ -18,28 +18,28 @@
     <br />
     <h3>Security login settings</h3>
     <ul>
-        <li>Role: </li>
-        <li>User Name: </li>
-        <li>Password: </li>
+        <li>Role: Administrator</li>
+        <li>User Name: Webmaster</li>
+        <li>Password: Pa$$w0rd</li>
     </ul>
     <ul>
-        <li>Role: </li>
-        <li>User Name: </li>
-        <li>Password: </li>
+        <li>Role: Food Service</li>
+        <li>User Name: MarlaKreeg</li>
+        <li>Password: Pa$$w0rd2018</li>
     </ul>
     <ul>
-        <li>Role: </li>
-        <li>User Name: </li>
-        <li>Password: </li>
+        <li>Role: Clerk</li>
+        <li>User Name: MarceauSerat</li>
+        <li>Password: Pa$$w0rd2018</li>
     </ul>
     <ul>
-        <li>Role: </li>
-        <li>User Name: </li>
-        <li>Password: </li>
+        <li>Role: Office Manager </li>
+        <li>User Name: KevinBeecham</li>
+        <li>Password: Pa$$w0rd2018</li>
     </ul>
     <ul>
-        <li>Role: </li>
-        <li>User Name: </li>
-        <li>Password: </li>
+        <li>Role: Director</li>
+        <li>User Name: IshratImsri</li>
+        <li>Password: Pa$$w0rd2018</li>
     </ul>
 </asp:Content>

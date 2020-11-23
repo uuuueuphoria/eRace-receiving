@@ -39,12 +39,12 @@ namespace ERace_WebApp.SubSystems.Receiving
                 }
                 else
                 {
-                    Response.Redirect("~/SubSystems/Receiving/AccessDenied.aspx.aspx");
+                    Response.Redirect("~/SubSystems/Receiving/AccessDenied.aspx");
                 }
             }
             else
             {
-                Response.Redirect("~/SubSystems/Sales/AccessDenied.aspx.aspx");
+                Response.Redirect("~/Account/Login.aspx");
             }
 
         }
