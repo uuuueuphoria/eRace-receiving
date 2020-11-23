@@ -21,7 +21,7 @@
                 <li>Completed ReadMe file</li>
                 <li>Created VS solution</li>
                 <li>Created subfolders</li>
-                <li>Ediedt Default Page</li>
+                <li>Edited Default Page</li>
                 <li>Created BusinessRuleException class</li>
                 <li>Added Web Application Security</li>
 
