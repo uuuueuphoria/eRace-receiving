@@ -103,6 +103,20 @@ namespace ERace_WebApp.Security
             if (result.Succeeded)
                 userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
 
+            //Add Racing Coordinator employee
+            employeeUser = "MartaThargg";
+            employeeRole = ConfigurationManager.AppSettings["raceCoordinatoreRole"];
+            employeeEmail = "Marta.Thargg@ERace.ca";
+            employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
+            employeeid = 5;
+            result = userManager.Create(new ApplicationUser
+            {
+                UserName = employeeUser,
+                Email = employeeEmail,
+                EmployeeId = employeeid
+            }, employeePassword);
+            if (result.Succeeded)
+                userManager.AddToRole(userManager.FindByName(employeeUser).Id, employeeRole);
             #endregion
 
 
