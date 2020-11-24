@@ -59,4 +59,10 @@
         <li>User Name: IshratImsri</li>
         <li>Password: Pa$$w0rd2018</li>
     </ul>
+     <ul>
+        <li>Role: Racing Coordinator</li>
+        <li>User Name: MartaThargg</li>
+        <li>Password: Pa$$w0rd2018</li>
+    </ul>
+
 </asp:Content>
