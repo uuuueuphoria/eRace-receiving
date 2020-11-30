@@ -312,7 +312,7 @@
     <Content Include="Site.Master" />
     <Content Include="SubSystems\Purchasing\Default.aspx" />
     <Content Include="SubSystems\Receiving\AccessDenied.aspx" />
-    <Content Include="SubSystems\Receiving\Default.aspx" />
+    <Content Include="SubSystems\Receiving\DefaultReceiving.aspx" />
     <Content Include="SubSystems\Sales\AccessDenied.aspx" />
     <Content Include="SubSystems\Sales\Default.aspx" />
     <Content Include="SubSystems\Sales\InStoreSales.aspx" />
@@ -508,12 +508,12 @@
     <Compile Include="SubSystems\Receiving\AccessDenied.aspx.designer.cs">
       <DependentUpon>AccessDenied.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SubSystems\Receiving\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="SubSystems\Receiving\DefaultReceiving.aspx.cs">
+      <DependentUpon>DefaultReceiving.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SubSystems\Receiving\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="SubSystems\Receiving\DefaultReceiving.aspx.designer.cs">
+      <DependentUpon>DefaultReceiving.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubSystems\Sales\AccessDenied.aspx.cs">
       <DependentUpon>AccessDenied.aspx</DependentUpon>

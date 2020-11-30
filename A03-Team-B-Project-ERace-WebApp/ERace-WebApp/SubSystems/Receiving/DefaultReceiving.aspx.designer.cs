@@ -11,7 +11,7 @@ namespace ERace_WebApp.SubSystems.Receiving
 {
 
 
-    public partial class Default
+    public partial class DefaultReceiving
     {
 
         /// <summary>
