@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERace_WebApp.SubSystems.Receiving
+namespace ERace_WebApp.SubSystems.Purchasing
 {
 
 
