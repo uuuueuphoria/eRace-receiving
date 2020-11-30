@@ -104,7 +104,7 @@
                                             style="color:black" runat="server">
                                        Purchasing Subsystem</a>
                                     <a class="dropdown-item"
-                                            href="~/SubSystems/Receiving/Default.aspx"
+                                            href="~/SubSystems/Receiving/DefaultReceiving.aspx"
                                             style="color:black" runat="server">
                                        Receiving Subsystem</a>
                                     <a class="dropdown-item"
