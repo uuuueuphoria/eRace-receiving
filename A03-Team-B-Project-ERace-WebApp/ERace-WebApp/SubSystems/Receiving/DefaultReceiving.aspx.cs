@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ERaceSystem.ViewModels.Receiving;
 
 namespace ERace_WebApp.SubSystems.Receiving
 {
@@ -46,6 +47,34 @@ namespace ERace_WebApp.SubSystems.Receiving
             {
                 Response.Redirect("~/Account/Login.aspx");
             }
+
+        }
+
+        protected void Open_Click(object sender, EventArgs e)
+        {
+            var controller = new PurchaseOrderController();
+            if (int.Parse(PurchaseOrderDropDownList.SelectedValue) == -1)
+            {
+                VendorName.Text = "";
+                VendorAddress.Text = "";
+                VendorContact.Text ="";
+                PhoneNumber.Text = "";
+            }
+            else
+            {
+                MessageUserControl.TryRun(() =>
+                {
+                    VendorDetails vendorDetails = controller.GetVendorDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    VendorName.Text = vendorDetails.Name;
+                    VendorAddress.Text = vendorDetails.Address;
+                    VendorContact.Text = vendorDetails.Contact;
+                    string area = vendorDetails.Phone.Substring(0, 3);
+                    string major = vendorDetails.Phone.Substring(3, 3);
+                    string minor = vendorDetails.Phone.Substring(6);
+                    PhoneNumber.Text = string.Format("{0}-{1}-{2}",area,major,minor);
+                }, "Open the Purchase Order", "Display Vendor Details");
+            }
+         
 
         }
     }

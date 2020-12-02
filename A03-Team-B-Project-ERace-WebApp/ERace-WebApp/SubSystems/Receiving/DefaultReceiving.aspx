@@ -12,19 +12,41 @@
             <asp:Label ID="LoggedUser" runat="server"></asp:Label>
         </div>
     </div>
+    <br />
     <div class="row">
-        <div class="offset-1">
-            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-        </div>
+        <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     </div>
+    <br />
     <div class="row">
         <div class="col-4">
-            <asp:DropDownList ID="PurchaseOrderDropDownList" runat="server" DataSourceID="ActivePOODS" DataTextField="DisplayText" DataValueField="ValueId"></asp:DropDownList>
+            <asp:DropDownList ID="PurchaseOrderDropDownList" runat="server" DataSourceID="ActivePOODS" DataTextField="DisplayText" DataValueField="ValueId" AppendDataBoundItems="true">
+                <asp:ListItem Value="-1" Text="Select a PO"></asp:ListItem>
+            </asp:DropDownList>
             &nbsp;&nbsp;
-            <asp:Button ID="Open" runat="server" Text="Open" />
+            <asp:Button ID="Open" runat="server" Text="Open" OnClick="Open_Click" />
         </div>
-
     </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            <asp:Label ID="VendorName" runat="server" ></asp:Label>
+        </div>
+        <div class="col-8">
+            <asp:Label ID="VendorAddress" runat="server" ></asp:Label>
+        </div>
+        <div class="col-2">
+            <asp:Button ID="ReceiveShipment" runat="server" Text="Receive Shipment" style="background-color:aqua"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-2">
+            <asp:Label ID="VendorContact" runat="server"></asp:Label>
+        </div>
+         <div class="col-10">
+              <asp:Label ID="PhoneNumber" runat="server"></asp:Label>
+         </div>
+    </div>
+    <br />
 
 
 

@@ -28,12 +28,30 @@ namespace ERaceSystem.BLL
                              orderby x.OrderNumber
                              select new SelectionList
                              {
-                                 ValueId = (int)x.OrderNumber,
+                                 ValueId = (int)x.OrderID,
                                  DisplayText = x.OrderNumber + " - " + x.Vendor.Name
                              };
                 return result.ToList();
             }
 
+        }
+
+        public VendorDetails GetVendorDetails(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var result = from x in context.Orders
+                             where x.OrderID == OrderId
+                             select new VendorDetails
+                             {
+                                 VendorID = x.Vendor.VendorID,
+                                 Name = x.Vendor.Name,
+                                 Address = x.Vendor.Address + " " + x.Vendor.City,
+                                 Phone = x.Vendor.Phone,
+                                 Contact = x.Vendor.Contact
+                             };
+                return result.FirstOrDefault();
+            }
         }
     }
 }
