@@ -35,12 +35,14 @@ namespace ERace_WebApp.SubSystems.Receiving
                         else
                         {
                             LoggedUser.Text = item.LastName + ", " + item.FirstName;
+                            ReceiveShipment.Enabled = false;
                         }
                     });
                 }
                 else
                 {
                     Response.Redirect("~/SubSystems/Receiving/AccessDenied.aspx");
+                    ReceiveShipment.Enabled = false;
                 }
             }
             else
@@ -59,11 +61,14 @@ namespace ERace_WebApp.SubSystems.Receiving
                 VendorAddress.Text = "";
                 VendorContact.Text ="";
                 PhoneNumber.Text = "";
+                PurchaseOrderDisplay.DataSource = null;
+                ReceiveShipment.Enabled = false;
             }
             else
             {
                 MessageUserControl.TryRun(() =>
                 {
+                    ReceiveShipment.Enabled = true;
                     VendorDetails vendorDetails = controller.GetVendorDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     VendorName.Text = vendorDetails.Name;
                     VendorAddress.Text = vendorDetails.Address;
@@ -72,7 +77,10 @@ namespace ERace_WebApp.SubSystems.Receiving
                     string major = vendorDetails.Phone.Substring(3, 3);
                     string minor = vendorDetails.Phone.Substring(6);
                     PhoneNumber.Text = string.Format("{0}-{1}-{2}",area,major,minor);
-                }, "Open the Purchase Order", "Display Vendor Details");
+                    List<PurchaseOrderDetail> info = controller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    PurchaseOrderDisplay.DataSource = info;
+                    PurchaseOrderDisplay.DataBind();
+                }, "Open the Purchase Order", "Display Purchase Order Details");
             }
          
 

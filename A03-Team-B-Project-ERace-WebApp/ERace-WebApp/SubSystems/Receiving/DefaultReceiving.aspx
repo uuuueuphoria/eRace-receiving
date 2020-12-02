@@ -3,9 +3,10 @@
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h1>Receiving Subsystem</h1>
     <div class="row">
         <div class="col-10">
-            <h1>Receiving</h1>
+            <h2>Receiving</h2>
         </div>
         <div class="col-2">
             <asp:Label ID="Label1" runat="server" Text="User: "></asp:Label>&nbsp;
@@ -46,45 +47,54 @@
          </div>
     </div>
     <br />
-    <asp:GridView ID="PurchaseOrderDisplay" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+    <asp:GridView ID="PurchaseOrderDisplay" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775"></AlternatingRowStyle>
         <Columns>
-            <asp:TemplateField AccessibleHeaderText="Item">
+            <asp:TemplateField HeaderText="OrderDetailID" Visible="false">
                 <ItemTemplate>
-                    <asp:Label runat="server" ID="ItemName"></asp:Label>
+                    <asp:Label runat="server" ID="OrderDetailID" Text='<%# Eval("OrderDetailID") %>'></asp:Label>
+                </ItemTemplate>
+                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Item" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="450px" ItemStyle-BorderStyle="Solid">
+                <ItemTemplate>
+                    <asp:Label runat="server" ID="ItemDescription" Text='<%# Eval("ItemDescription") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Quantity Ordered">
+            <asp:TemplateField HeaderText="Quantity Ordered" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="80px" ItemStyle-BorderStyle="Solid">
                 <ItemTemplate>
-                    <asp:Label runat="server" ID="QtyOrdered"></asp:Label>
+                    <asp:Label runat="server" ID="QtyOrdered" Text='<%# Eval("QtyOrdered") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Ordered Units">
+            <asp:TemplateField HeaderText="Ordered Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="200px" ItemStyle-HorizontalAlign="left">
                 <ItemTemplate>
-                    <asp:Label runat="server" ID="OrderedUnit"></asp:Label>
+                    <asp:Label runat="server" ID="OrderedUnits" Text='<%# Eval("OrderedUnits") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Quantity Outstanding">
+            <asp:TemplateField HeaderText="Quantity Outstanding" ItemStyle-BorderStyle="Solid" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Center">
                 <ItemTemplate>
-                    <asp:Label runat="server" ID="QtyOutstanding"></asp:Label>
+                  <asp:Label runat="server" ID="QtyOutstanding" Text='<%# Eval("QtyOutstanding") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Received Units">
+            <asp:TemplateField HeaderText="Received Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
                 <ItemTemplate>
-                    <asp:TextBox ID="UnitReceived" runat="server"></asp:TextBox>
-                    <asp:Label runat="server" ID="Unit"></asp:Label>
+                    <asp:TextBox ID="UnitReceived" runat="server" Text='<%# Eval("UnitReceived") %>' Width="60px" TextMode="Number" step="1" min="0"></asp:TextBox>
+                    <asp:Label runat="server" ID="Unit" Text='<%# Eval("Unit") %>' Width="230px"></asp:Label>
                 </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center"></ItemStyle>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Rejected Units / Reason">
+            <asp:TemplateField HeaderText="Rejected Units / Reason" ItemStyle-BorderStyle="Solid" ItemStyle-Width="350px" ItemStyle-HorizontalAlign="Left">
                 <ItemTemplate>
-                    <asp:Textbox runat="server" ID="UnitRejected"></asp:Textbox>
-                    <asp:Textbox runat="server" ID="Reason"></asp:Textbox>
+                    <asp:Textbox runat="server" ID="UnitRejected" Text='<%# Eval("UnitRejected") %>' Width="60px" TextMode="Number" step="1" min="0"></asp:Textbox>
+                    <asp:Textbox runat="server" ID="Reason" Text='<%# Eval("Reason") %>' Width="220px"></asp:Textbox>
                 </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center"></ItemStyle>
             </asp:TemplateField>
-            <asp:TemplateField AccessibleHeaderText="Salvaged Items">
+            <asp:TemplateField HeaderText="Salvaged Items" ItemStyle-BorderStyle="Solid" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
                 <ItemTemplate>
-                    <asp:Textbox runat="server" ID="QtySalvaged"></asp:Textbox>
+                    <asp:Textbox runat="server" ID="QtySalvaged" Text='<%# Eval("QtySalvaged") %>' Width="50px" TextMode="Number" step="1" min="0"></asp:Textbox>
                 </ItemTemplate>
+                <ItemStyle HorizontalAlign="Left"></ItemStyle>
             </asp:TemplateField>
         </Columns>
         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White"></FooterStyle>
