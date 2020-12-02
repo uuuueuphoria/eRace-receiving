@@ -30,7 +30,7 @@ namespace ERaceSystem.BLL
                                    ValueId = prod.ProductID,
                                    DisplayText = prod.ItemName,                                  
                                });
-                results.ToList();
+                return results.ToList();
             }
         }
         public ProductItem Product_FindById(int productid)

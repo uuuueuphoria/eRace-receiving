@@ -21,10 +21,16 @@
                 <uc1:MessageUserControl runat="server" id="MessageUserControl" />
         </div>
     </div>
+
+    
+
+
     <div class="row">
-         <a class="btn btn-default" href="InStoreSales.aspx">In-Store Sales Page &raquo;</a>
+        <div class="col-med-2">
+            <a class="btn btn-default" href="InStoreSales.aspx">In-Store Sales Page &raquo;</a>
+       
+            <a class="btn btn-default" href="Default.aspx">Default Page &raquo;</a>
+        </div>
     </div>
-     <div class="row">
-         <a class="btn btn-default" href="Default.aspx">Default Page &raquo;</a>
-    </div>
+   
 </asp:Content>

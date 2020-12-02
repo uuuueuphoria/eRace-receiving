@@ -55,5 +55,25 @@ namespace ERace_WebApp.SubSystems.Sales
             }
 
         }
+
+        protected void AddButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CategoryDDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RemoveProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Refresh_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
