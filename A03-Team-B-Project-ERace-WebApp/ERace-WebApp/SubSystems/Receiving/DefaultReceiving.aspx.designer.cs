@@ -33,15 +33,6 @@ namespace ERace_WebApp.SubSystems.Receiving
         protected global::System.Web.UI.WebControls.Label LoggedUser;
 
         /// <summary>
-        /// MessageUserControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DMIT2018Common.UserControls.MessageUserControl MessageUserControl;
-
-        /// <summary>
         /// PurchaseOrderDropDownList control.
         /// </summary>
         /// <remarks>
@@ -58,6 +49,15 @@ namespace ERace_WebApp.SubSystems.Receiving
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Open;
+
+        /// <summary>
+        /// MessageUserControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DMIT2018Common.UserControls.MessageUserControl MessageUserControl;
 
         /// <summary>
         /// VendorName control.
@@ -103,6 +103,15 @@ namespace ERace_WebApp.SubSystems.Receiving
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label PhoneNumber;
+
+        /// <summary>
+        /// GridView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
         /// ActivePOODS control.
