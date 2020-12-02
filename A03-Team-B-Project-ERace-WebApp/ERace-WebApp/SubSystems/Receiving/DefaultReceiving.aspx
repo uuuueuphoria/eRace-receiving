@@ -17,5 +17,19 @@
             <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
         </div>
     </div>
+    <div class="row">
+        <div class="col-4">
+            <asp:DropDownList ID="PurchaseOrderDropDownList" runat="server" DataSourceID="ActivePOODS" DataTextField="DisplayText" DataValueField="ValueId"></asp:DropDownList>
+            &nbsp;&nbsp;
+            <asp:Button ID="Open" runat="server" Text="Open" />
+        </div>
 
+    </div>
+
+
+
+
+
+
+    <asp:ObjectDataSource ID="ActivePOODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetActivePurchaseOrderList" TypeName="ERaceSystem.BLL.PurchaseOrderController"></asp:ObjectDataSource>
 </asp:Content>

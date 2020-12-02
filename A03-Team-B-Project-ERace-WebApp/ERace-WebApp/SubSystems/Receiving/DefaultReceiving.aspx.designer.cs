@@ -40,5 +40,32 @@ namespace ERace_WebApp.SubSystems.Receiving
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DMIT2018Common.UserControls.MessageUserControl MessageUserControl;
+
+        /// <summary>
+        /// PurchaseOrderDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PurchaseOrderDropDownList;
+
+        /// <summary>
+        /// Open control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Open;
+
+        /// <summary>
+        /// ActivePOODS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ActivePOODS;
     }
 }
