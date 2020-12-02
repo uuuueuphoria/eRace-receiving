@@ -18,6 +18,7 @@ namespace ERaceSystem.BLL
     public class CategoryController
     {
         #region Queries
+        [DataObjectMethod(DataObjectMethodType.Select,false)]
         public List<SelectionList> ListCategories()
         {
             using (var context = new ERaceSystemContext())
