@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ERaceSystem.ViewModels
 {
-    class dummy
+    public class VendorList
     {
+        public int ValueId { get; set; }
+        public string DisplayText { get; set; }
     }
 }
