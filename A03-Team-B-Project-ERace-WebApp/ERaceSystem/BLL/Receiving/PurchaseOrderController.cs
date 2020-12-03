@@ -53,5 +53,66 @@ namespace ERaceSystem.BLL
                 return result.FirstOrDefault();
             }
         }
+
+        public List<PurchaseOrderDetail> GetPurchaseOrderDetails(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var result = from x in context.OrderDetails
+                             where x.OrderID == OrderId
+                             select new PurchaseOrderDetail
+                             {
+                                 OrderDetailID = x.OrderDetailID,
+                                 ItemDescription = x.Product.ItemName,
+                                 OrderedUnits = x.OrderUnitSize > 1 ? x.Quantity + " x case of " + x.OrderUnitSize : x.Quantity + " ea",
+                                 QtyOrdered = x.Quantity * x.OrderUnitSize,
+                                 Unit = x.OrderUnitSize > 1 ? " x case of " + x.OrderUnitSize : " ea",
+                                 QtyOutstanding = x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
+                                                                                  where y.OrderDetailID == x.OrderDetailID
+                                                                                  select y.ItemQuantity).FirstOrDefault(),
+                                 UnitReceived = null,
+                                 UnitRejected = null,
+                                 Reason = "",
+                                 QtySalvaged=null
+                             };
+                return result.ToList();
+            }
+        }
+
+        public void DeleteUnorderedItem(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+
+                List<UnOrderedItem> exists = (from x in context.UnOrderedItems
+                                              where x.OrderID == OrderId
+                                              select x).ToList();
+                if (exists != null)
+                {
+                    foreach(UnOrderedItem item in exists)
+                    {
+                        context.UnOrderedItems.Remove(item);
+                    }
+                }
+                //commit
+                context.SaveChanges();
+            }
+        }
+        public List<UnorderedItem> GetUnorderedItem(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var result = from x in context.UnOrderedItems
+                             where x.OrderID == OrderId
+                             select new UnorderedItem
+                             {
+                                 ItemID=x.ItemID,
+                                 ItemName=x.ItemName,
+                                 VendorProductID=x.VendorProductID,
+                                 Quantity=x.Quantity
+                             };
+                return result.ToList();
+            }
+        }
     }
 }

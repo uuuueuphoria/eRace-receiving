@@ -35,12 +35,20 @@ namespace ERace_WebApp.SubSystems.Receiving
                         else
                         {
                             LoggedUser.Text = item.LastName + ", " + item.FirstName;
+                            ReceiveShipment.Enabled = false;
+                            ForceClose.Visible = false;
+                            ForceCloseReason.Visible = false;
+                            UnorderedTable.Visible = false;
                         }
                     });
                 }
                 else
                 {
                     Response.Redirect("~/SubSystems/Receiving/AccessDenied.aspx");
+                    ReceiveShipment.Enabled = false;
+                    ForceClose.Visible = false;
+                    ForceCloseReason.Visible = false;
+                    UnorderedTable.Visible = false;
                 }
             }
             else
@@ -59,11 +67,18 @@ namespace ERace_WebApp.SubSystems.Receiving
                 VendorAddress.Text = "";
                 VendorContact.Text ="";
                 PhoneNumber.Text = "";
+                PurchaseOrderDisplay.DataSource = null;
+                PurchaseOrderDisplay.DataBind();
+                ReceiveShipment.Enabled = false;
+                ForceClose.Visible = false;
+                ForceCloseReason.Visible = false;
+                UnorderedTable.Visible = false;
             }
             else
             {
                 MessageUserControl.TryRun(() =>
                 {
+                    ReceiveShipment.Enabled = true;
                     VendorDetails vendorDetails = controller.GetVendorDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     VendorName.Text = vendorDetails.Name;
                     VendorAddress.Text = vendorDetails.Address;
@@ -72,7 +87,25 @@ namespace ERace_WebApp.SubSystems.Receiving
                     string major = vendorDetails.Phone.Substring(3, 3);
                     string minor = vendorDetails.Phone.Substring(6);
                     PhoneNumber.Text = string.Format("{0}-{1}-{2}",area,major,minor);
-                }, "Open the Purchase Order", "Display Vendor Details");
+                    List<PurchaseOrderDetail> info = controller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    PurchaseOrderDisplay.DataSource = info;
+                    PurchaseOrderDisplay.DataBind();
+                    ForceClose.Visible = true;
+                    ForceCloseReason.Visible = true;
+                    foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
+                    {
+                        int QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
+                        if (QtyOutstanding == 0)
+                        {
+                            (row.FindControl("UnitReceived") as TextBox).Visible = false;
+                            (row.FindControl("Unit") as Label).Visible = false;
+                        }
+                    }
+                   controller.DeleteUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    UnorderedTable.Visible = true;
+                    UnorderedTable.DataSource = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    UnorderedTable.DataBind();
+                }, "Open the Purchase Order", "Display Purchase Order Details");
             }
          
 
