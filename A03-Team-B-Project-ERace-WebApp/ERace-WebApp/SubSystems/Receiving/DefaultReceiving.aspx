@@ -56,45 +56,42 @@
                 </ItemTemplate>
                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Item" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="450px" ItemStyle-BorderStyle="Solid">
+            <asp:TemplateField HeaderText="Item" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="450px" ItemStyle-BorderStyle="Solid" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black">
                 <ItemTemplate>
                     <asp:Label runat="server" ID="ItemDescription" Text='<%# Eval("ItemDescription") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Quantity Ordered" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="80px" ItemStyle-BorderStyle="Solid">
+            <asp:TemplateField HeaderText="Quantity Ordered" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="80px" ItemStyle-BorderStyle="Solid" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BorderColor="Black">
                 <ItemTemplate>
                     <asp:Label runat="server" ID="QtyOrdered" Text='<%# Eval("QtyOrdered") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Ordered Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="200px" ItemStyle-HorizontalAlign="left">
+            <asp:TemplateField HeaderText="Ordered Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="200px" ItemStyle-HorizontalAlign="left" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black">
                 <ItemTemplate>
                     <asp:Label runat="server" ID="OrderedUnits" Text='<%# Eval("OrderedUnits") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Quantity Outstanding" ItemStyle-BorderStyle="Solid" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Center">
+            <asp:TemplateField HeaderText="Quantity Outstanding" ItemStyle-BorderStyle="Solid" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Center" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BorderColor="Black">
                 <ItemTemplate>
                   <asp:Label runat="server" ID="QtyOutstanding" Text='<%# Eval("QtyOutstanding") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Received Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
+            <asp:TemplateField HeaderText="Received Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="300px" ItemStyle-HorizontalAlign="Left" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black" ItemStyle-Wrap="false">
                 <ItemTemplate>
                     <asp:TextBox ID="UnitReceived" runat="server" Text='<%# Eval("UnitReceived") %>' Width="60px" TextMode="Number" step="1" min="0"></asp:TextBox>
                     <asp:Label runat="server" ID="Unit" Text='<%# Eval("Unit") %>' Width="230px"></asp:Label>
                 </ItemTemplate>
-                <ItemStyle HorizontalAlign="Center"></ItemStyle>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Rejected Units / Reason" ItemStyle-BorderStyle="Solid" ItemStyle-Width="350px" ItemStyle-HorizontalAlign="Left">
+            <asp:TemplateField HeaderText="Rejected Units / Reason" ItemStyle-BorderStyle="Solid" ItemStyle-Width="350px" ItemStyle-HorizontalAlign="Left" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black" ItemStyle-Wrap="false">
                 <ItemTemplate>
                     <asp:Textbox runat="server" ID="UnitRejected" Text='<%# Eval("UnitRejected") %>' Width="60px" TextMode="Number" step="1" min="0"></asp:Textbox>
                     <asp:Textbox runat="server" ID="Reason" Text='<%# Eval("Reason") %>' Width="220px"></asp:Textbox>
                 </ItemTemplate>
-                <ItemStyle HorizontalAlign="Center"></ItemStyle>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Salvaged Items" ItemStyle-BorderStyle="Solid" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
+            <asp:TemplateField HeaderText="Salvaged Items" ItemStyle-BorderStyle="Solid" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black">
                 <ItemTemplate>
                     <asp:Textbox runat="server" ID="QtySalvaged" Text='<%# Eval("QtySalvaged") %>' Width="50px" TextMode="Number" step="1" min="0"></asp:Textbox>
                 </ItemTemplate>
-                <ItemStyle HorizontalAlign="Left"></ItemStyle>
             </asp:TemplateField>
         </Columns>
         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White"></FooterStyle>

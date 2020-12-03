@@ -80,6 +80,10 @@ namespace ERace_WebApp.SubSystems.Receiving
                     List<PurchaseOrderDetail> info = controller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     PurchaseOrderDisplay.DataSource = info;
                     PurchaseOrderDisplay.DataBind();
+                    foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
+                    {
+
+                    }
                 }, "Open the Purchase Order", "Display Purchase Order Details");
             }
          
