@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\Receiving\PurchaseOrderDetail.cs" />
     <Compile Include="ViewModels\Receiving\PurchaseOrderList.cs" />
     <Compile Include="ViewModels\Receiving\SelectionList.cs" />
+    <Compile Include="ViewModels\Receiving\UnorderedItem.cs" />
     <Compile Include="ViewModels\Receiving\VendorDetails.cs" />
     <Compile Include="ViewModels\Sales\InvoiceItem.cs" />
     <Compile Include="ViewModels\Sales\InvoiceList.cs" />

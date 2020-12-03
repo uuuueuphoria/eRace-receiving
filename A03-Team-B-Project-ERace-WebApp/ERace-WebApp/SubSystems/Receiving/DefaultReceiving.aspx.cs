@@ -36,6 +36,9 @@ namespace ERace_WebApp.SubSystems.Receiving
                         {
                             LoggedUser.Text = item.LastName + ", " + item.FirstName;
                             ReceiveShipment.Enabled = false;
+                            ForceClose.Visible = false;
+                            ForceCloseReason.Visible = false;
+                            UnorderedTable.Visible = false;
                         }
                     });
                 }
@@ -43,6 +46,9 @@ namespace ERace_WebApp.SubSystems.Receiving
                 {
                     Response.Redirect("~/SubSystems/Receiving/AccessDenied.aspx");
                     ReceiveShipment.Enabled = false;
+                    ForceClose.Visible = false;
+                    ForceCloseReason.Visible = false;
+                    UnorderedTable.Visible = false;
                 }
             }
             else
@@ -62,7 +68,11 @@ namespace ERace_WebApp.SubSystems.Receiving
                 VendorContact.Text ="";
                 PhoneNumber.Text = "";
                 PurchaseOrderDisplay.DataSource = null;
+                PurchaseOrderDisplay.DataBind();
                 ReceiveShipment.Enabled = false;
+                ForceClose.Visible = false;
+                ForceCloseReason.Visible = false;
+                UnorderedTable.Visible = false;
             }
             else
             {
@@ -80,10 +90,21 @@ namespace ERace_WebApp.SubSystems.Receiving
                     List<PurchaseOrderDetail> info = controller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     PurchaseOrderDisplay.DataSource = info;
                     PurchaseOrderDisplay.DataBind();
+                    ForceClose.Visible = true;
+                    ForceCloseReason.Visible = true;
                     foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
                     {
-
+                        int QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
+                        if (QtyOutstanding == 0)
+                        {
+                            (row.FindControl("UnitReceived") as TextBox).Visible = false;
+                            (row.FindControl("Unit") as Label).Visible = false;
+                        }
                     }
+                   controller.DeleteUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    UnorderedTable.Visible = true;
+                    UnorderedTable.DataSource = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    UnorderedTable.DataBind();
                 }, "Open the Purchase Order", "Display Purchase Order Details");
             }
          

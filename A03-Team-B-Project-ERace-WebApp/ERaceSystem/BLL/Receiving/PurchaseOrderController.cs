@@ -78,5 +78,41 @@ namespace ERaceSystem.BLL
                 return result.ToList();
             }
         }
+
+        public void DeleteUnorderedItem(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+
+                List<UnOrderedItem> exists = (from x in context.UnOrderedItems
+                                              where x.OrderID == OrderId
+                                              select x).ToList();
+                if (exists != null)
+                {
+                    foreach(UnOrderedItem item in exists)
+                    {
+                        context.UnOrderedItems.Remove(item);
+                    }
+                }
+                //commit
+                context.SaveChanges();
+            }
+        }
+        public List<UnorderedItem> GetUnorderedItem(int OrderId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var result = from x in context.UnOrderedItems
+                             where x.OrderID == OrderId
+                             select new UnorderedItem
+                             {
+                                 ItemID=x.ItemID,
+                                 ItemName=x.ItemName,
+                                 VendorProductID=x.VendorProductID,
+                                 Quantity=x.Quantity
+                             };
+                return result.ToList();
+            }
+        }
     }
 }
