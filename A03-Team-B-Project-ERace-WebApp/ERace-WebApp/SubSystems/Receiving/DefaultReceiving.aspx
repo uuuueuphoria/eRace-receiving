@@ -16,7 +16,7 @@
     <br />
     <div class="row">
         <div class="col-8">
-            <asp:DropDownList ID="PurchaseOrderDropDownList" runat="server" DataSourceID="ActivePOODS" DataTextField="DisplayText" DataValueField="ValueId" AppendDataBoundItems="true">
+            <asp:DropDownList ID="PurchaseOrderDropDownList" runat="server" DataTextField="DisplayText" DataValueField="ValueId" AppendDataBoundItems="false" DataSourceID="ActivePOODS">
                 <asp:ListItem Value="-1" Text="Select a PO"></asp:ListItem>
             </asp:DropDownList>
             &nbsp;&nbsp;

@@ -39,7 +39,20 @@ namespace ERace_WebApp.SubSystems.Receiving
                             ReceiveShipment.Enabled = false;
                             ForceClose.Visible = false;
                             ForceCloseReason.Visible = false;
-                            UnorderedTable.Visible = false;
+                            UnorderedTable.Visible = false;    
+                            if (!Page.IsPostBack)
+                            {
+                                PurchaseOrderDropDownList.DataBind();
+                                PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
+                                PurchaseOrderDropDownList.SelectedIndex = -1;
+                            }
+                            else
+                            {
+                                int index = PurchaseOrderDropDownList.SelectedIndex;
+                                PurchaseOrderDropDownList.DataBind();
+                                PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
+                                PurchaseOrderDropDownList.SelectedIndex = index;
+                            }
                         }
                     });
                 }
@@ -213,7 +226,6 @@ namespace ERace_WebApp.SubSystems.Receiving
             PurchaseOrderDisplay.Visible = false;
             string reason = ForceCloseReason.Text;
             int OrderID = int.Parse(PurchaseOrderDropDownList.SelectedValue);
-            PurchaseOrderDropDownList.SelectedIndex = -1;
             List<ProductInventory> items = new List<ProductInventory>();
             ProductInventory item = new ProductInventory();
             foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
@@ -227,8 +239,10 @@ namespace ERace_WebApp.SubSystems.Receiving
                 var controller = new PurchaseOrderController();
                 controller.ForceCloseOrder(OrderID, reason, items);
             }, "Force Close", "Successful close the order");
-
-
+            var tempcontroller = new PurchaseOrderController();
+            PurchaseOrderDropDownList.DataBind();
+            PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
+            PurchaseOrderDropDownList.SelectedIndex = -1;
         }
     }
 }
