@@ -12,6 +12,7 @@ namespace ERaceSystem.ViewModels.Receiving
         public string ItemName { get; set; }
         public string VendorProductID { get; set; }
         public int Quantity { get; set; }
+        public int OrderID { get; set; }
 
     }
 }

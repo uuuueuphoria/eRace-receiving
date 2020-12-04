@@ -79,7 +79,7 @@ namespace ERaceSystem.BLL
             }
         }
 
-        public void DeleteUnorderedItem(int OrderId)
+        public void DeleteAllUnorderedItem(int OrderId)
         {
             using (var context = new ERaceSystemContext())
             {
@@ -96,6 +96,48 @@ namespace ERaceSystem.BLL
                 }
                 //commit
                 context.SaveChanges();
+            }
+        }
+
+        public void DeleteUnorderedItem(int ItemId)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+
+                UnOrderedItem exists = (from x in context.UnOrderedItems
+                                              where x.ItemID == ItemId
+                                              select x).FirstOrDefault();
+                if (exists != null)
+                {
+                    context.UnOrderedItems.Remove(exists);
+                }
+                //commit
+                context.SaveChanges();
+            }
+        }
+
+        public void InsertUnorderedItem(UnorderedItem item)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var exists = (from x in context.Orders
+                             where x.OrderID == item.OrderID && x.Closed == false
+                             select x).FirstOrDefault();
+                if (exists==null)
+                {
+                    throw new Exception("The current order does not exist.");
+                }
+                else
+                {
+                    UnOrderedItem temp = new UnOrderedItem();
+                    temp.ItemName = item.ItemName;
+                    temp.VendorProductID = item.VendorProductID;
+                    temp.Quantity = item.Quantity;
+                    temp.OrderID = item.OrderID;
+                    context.UnOrderedItems.Add(temp);
+                    //commit
+                    context.SaveChanges();
+                }
             }
         }
         public List<UnorderedItem> GetUnorderedItem(int OrderId)

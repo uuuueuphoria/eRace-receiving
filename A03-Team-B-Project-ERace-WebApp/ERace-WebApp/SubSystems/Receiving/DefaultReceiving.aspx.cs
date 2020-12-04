@@ -101,14 +101,100 @@ namespace ERace_WebApp.SubSystems.Receiving
                             (row.FindControl("Unit") as Label).Visible = false;
                         }
                     }
-                   controller.DeleteUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                   //controller.DeleteUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     UnorderedTable.Visible = true;
-                    UnorderedTable.DataSource = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
-                    UnorderedTable.DataBind();
+                    List<UnorderedItem> items= controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    if (items.Count==0)
+                    {
+                        List<UnorderedItem> dummyrow = new List<UnorderedItem>();
+                        UnorderedItem dummy = new UnorderedItem();
+                        dummyrow.Add(dummy);
+                        UnorderedTable.DataSource = dummyrow;
+                        UnorderedTable.DataBind();
+                        UnorderedTable.Rows[0].Visible = false;
+                    }
+                    else
+                    {
+                        UnorderedTable.DataSource = items;
+                        UnorderedTable.DataBind();
+                    }                
                 }, "Open the Purchase Order", "Display Purchase Order Details");
             }
          
 
         }
+
+        protected void UnorderedTable_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            //add button
+            if (e.CommandArgument.Equals("New"))
+            {
+                UnorderedItem item = new UnorderedItem();
+                item.ItemName = (UnorderedTable.FooterRow.FindControl("ItemNameFooter") as TextBox).Text;
+                item.VendorProductID = (UnorderedTable.FooterRow.FindControl("VendorProductIDFooter") as TextBox).Text;
+                item.Quantity = int.Parse((UnorderedTable.FooterRow.FindControl("QuantityFooter") as TextBox).Text);
+                item.OrderID = (int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                if (item.ItemName == "")
+                {
+                    MessageUserControl.ShowInfo("add new item", "Item name must be provided");
+                }
+                if (item.VendorProductID == "")
+                {
+                    MessageUserControl.ShowInfo("add new item", "Vendor ID must be provided");
+                }
+                if (item.Quantity == 0)
+                {
+                    MessageUserControl.ShowInfo("add new item", "Quantity must be provided");
+                }
+                MessageUserControl.TryRun(() =>
+                {
+                    var controller = new PurchaseOrderController();
+                    controller.InsertUnorderedItem(item);
+                    UnorderedTable.Visible = true;
+                    UnorderedTable.DataSource = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                    UnorderedTable.DataBind();
+                    ForceClose.Visible = true;
+                    ForceCloseReason.Visible = true;
+                    ReceiveShipment.Enabled = true;
+                },"Add New Unordered Item","Add Successful");
+                
+            }
+        }
+
+        protected void UnorderedTable_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+                 int ItemID = int.Parse((UnorderedTable.Rows[e.RowIndex].FindControl("ItemID") as Label).Text);
+                if (ItemID==0)
+                {
+                    MessageUserControl.ShowInfo("Remove item", "Invalid item");
+                }
+                else
+                {
+                    MessageUserControl.TryRun(() =>
+                    {
+                        var controller = new PurchaseOrderController();
+                        controller.DeleteUnorderedItem(ItemID);
+                        UnorderedTable.Visible = true;
+                        List<UnorderedItem>items= controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                        ForceClose.Visible = true;
+                        ForceCloseReason.Visible = true;
+                        ReceiveShipment.Enabled = true;
+                        if (items.Count == 0)
+                        {
+                            List<UnorderedItem> dummyrow = new List<UnorderedItem>();
+                            UnorderedItem dummy = new UnorderedItem();
+                            dummyrow.Add(dummy);
+                            UnorderedTable.DataSource = dummyrow;
+                            UnorderedTable.DataBind();
+                            UnorderedTable.Rows[0].Visible = false;
+                        }
+                        else
+                        {
+                            UnorderedTable.DataSource = items;
+                            UnorderedTable.DataBind();
+                        }
+                    }, "Remove Unordered Item", "Remove Successful");
+                }
+            }
     }
 }
