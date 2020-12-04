@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ERaceSystem.ViewModels.Receiving;
 
+
 namespace ERace_WebApp.SubSystems.Receiving
 {
     public partial class DefaultReceiving : System.Web.UI.Page
@@ -69,6 +70,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                 PhoneNumber.Text = "";
                 PurchaseOrderDisplay.DataSource = null;
                 PurchaseOrderDisplay.DataBind();
+                PurchaseOrderDisplay.Visible = false;
                 ReceiveShipment.Enabled = false;
                 ForceClose.Visible = false;
                 ForceCloseReason.Visible = false;
@@ -90,6 +92,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                     List<PurchaseOrderDetail> info = controller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     PurchaseOrderDisplay.DataSource = info;
                     PurchaseOrderDisplay.DataBind();
+                    PurchaseOrderDisplay.Visible = true;
                     ForceClose.Visible = true;
                     ForceCloseReason.Visible = true;
                     foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
@@ -112,11 +115,13 @@ namespace ERace_WebApp.SubSystems.Receiving
                         UnorderedTable.DataSource = dummyrow;
                         UnorderedTable.DataBind();
                         UnorderedTable.Rows[0].Visible = false;
+                        PurchaseOrderDisplay.Visible = true;
                     }
                     else
                     {
                         UnorderedTable.DataSource = items;
                         UnorderedTable.DataBind();
+                        PurchaseOrderDisplay.Visible = true;
                     }                
                 }, "Open the Purchase Order", "Display Purchase Order Details");
             }
@@ -155,6 +160,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                     UnorderedTable.DataBind();
                     ForceClose.Visible = true;
                     ForceCloseReason.Visible = true;
+                    PurchaseOrderDisplay.Visible = true;
                     ReceiveShipment.Enabled = true;
                 },"Add New Unordered Item","Add Successful");
                 
@@ -196,5 +202,17 @@ namespace ERace_WebApp.SubSystems.Receiving
                     }, "Remove Unordered Item", "Remove Successful");
                 }
             }
+
+        protected void ForceClose_Click(object sender, EventArgs e)
+        {
+            VendorAddress.Text = "";
+            VendorContact.Text = "";
+            VendorName.Text = "";
+            PhoneNumber.Text = "";
+            PurchaseOrderDropDownList.SelectedIndex = -1;
+            UnorderedTable.Visible = false;
+            PurchaseOrderDisplay.Visible = false;
+           
+        }
     }
 }

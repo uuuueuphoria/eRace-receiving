@@ -117,7 +117,7 @@
 
         </div>
         <div class="col-2">
-            <asp:Button ID="ForceClose" runat="server" Text="Force Close" Visible="false" />
+            <asp:Button ID="ForceClose" runat="server" Text="Force Close" Visible="false" OnClick = "ForceClose_Click" OnClientClick="return confirm('Are you sure you wish to remove?')"/>
         </div>
         <div class="col-5">
             <asp:TextBox ID="ForceCloseReason" runat="server" style="width:350px !important; height:100px" Visible="false"></asp:TextBox>
