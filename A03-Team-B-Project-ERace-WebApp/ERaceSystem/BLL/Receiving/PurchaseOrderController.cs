@@ -11,6 +11,7 @@ using ERaceSystem.Entities;
 using System.ComponentModel;
 using ERaceSystem.ViewModels;
 using ERaceSystem.ViewModels.Receiving;
+using DMIT2018Common.UserControls;
 
 #endregion
 namespace ERaceSystem.BLL
@@ -79,23 +80,73 @@ namespace ERaceSystem.BLL
             }
         }
 
-        public void DeleteAllUnorderedItem(int OrderId)
+        private List<string> errors = new List<string>();
+        public void ForceCloseOrder(int OrderId, string Reason, List<ProductInventory> items)
         {
             using (var context = new ERaceSystemContext())
             {
-
-                List<UnOrderedItem> exists = (from x in context.UnOrderedItems
-                                              where x.OrderID == OrderId
-                                              select x).ToList();
-                if (exists != null)
+                if (Reason == "")
                 {
-                    foreach(UnOrderedItem item in exists)
+                    errors.Add("You must provide a reason");
+                }
+                var exist = (from x in context.Orders
+                             where x.OrderID == OrderId && x.Closed == false && x.OrderNumber != null && x.OrderDate != null
+                             select x).FirstOrDefault();
+                if (exist == null)
+                {
+                    errors.Add("Order does not exist or already closed");
+                }
+                foreach(ProductInventory item in items)
+                {
+                    int productid = (from x in context.OrderDetails
+                                     where x.OrderDetailID == item.OrderDetailID
+                                     select x.ProductID).FirstOrDefault();
+                    var real = (from x in context.Products
+                                where x.ProductID == productid
+                                select x).FirstOrDefault();
+                    if (real == null)
                     {
-                        context.UnOrderedItems.Remove(item);
+                        errors.Add("Invalid item");
                     }
                 }
-                //commit
-                context.SaveChanges();
+                if (errors.Count() > 0)
+                {
+                    
+                    throw new BusinessRuleException("your transaction contains following errors: ", errors);
+                }
+                else
+                {
+                    Order purchaseOrder = (from x in context.Orders
+                                           where x.OrderID == OrderId
+                                           select x).FirstOrDefault();
+                    purchaseOrder.Closed = true;
+                    context.Entry(purchaseOrder).State = System.Data.Entity.EntityState.Modified;
+                    List < UnOrderedItem > exists = (from x in context.UnOrderedItems
+                                                     where x.OrderID == OrderId
+                                                     select x).ToList();
+                    if (exists != null)
+                    {
+                        foreach (UnOrderedItem item in exists)
+                        {
+                            context.UnOrderedItems.Remove(item);
+                        }
+                    }
+                    foreach (ProductInventory item in items)
+                    {
+                        int productid = (from x in context.OrderDetails
+                                         where x.OrderDetailID == item.OrderDetailID
+                                         select x.ProductID).FirstOrDefault();
+                        var real = (from x in context.Products
+                                    where x.ProductID == productid
+                                    select x).FirstOrDefault();
+                        if (real != null)
+                        {
+                            real.QuantityOnOrder = real.QuantityOnOrder - item.QtyOutstanding;
+                        }
+                        context.Entry(real).State = System.Data.Entity.EntityState.Modified;
+                    }
+                    context.SaveChanges();
+                }
             }
         }
 

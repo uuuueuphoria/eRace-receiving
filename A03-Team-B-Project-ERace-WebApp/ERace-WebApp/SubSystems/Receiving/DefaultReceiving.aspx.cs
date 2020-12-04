@@ -209,10 +209,26 @@ namespace ERace_WebApp.SubSystems.Receiving
             VendorContact.Text = "";
             VendorName.Text = "";
             PhoneNumber.Text = "";
-            PurchaseOrderDropDownList.SelectedIndex = -1;
             UnorderedTable.Visible = false;
             PurchaseOrderDisplay.Visible = false;
-           
+            string reason = ForceCloseReason.Text;
+            int OrderID = int.Parse(PurchaseOrderDropDownList.SelectedValue);
+            PurchaseOrderDropDownList.SelectedIndex = -1;
+            List<ProductInventory> items = new List<ProductInventory>();
+            ProductInventory item = new ProductInventory();
+            foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
+            {
+                item.OrderDetailID = int.Parse((row.FindControl("OrderDetailID") as Label).Text);
+                item.QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
+                items.Add(item);
+            }
+            MessageUserControl.TryRun(() =>
+            {
+                var controller = new PurchaseOrderController();
+                controller.ForceCloseOrder(OrderID, reason, items);
+            }, "Force Close", "Successful close the order");
+
+
         }
     }
 }

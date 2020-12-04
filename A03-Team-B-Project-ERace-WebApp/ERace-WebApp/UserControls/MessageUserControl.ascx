@@ -7,15 +7,15 @@
     <div class="panel-body">
         <asp:Label ID="MessageLabel" runat="server" />
         <asp:Repeater ID="MessageDetailsRepeater" runat="server" EnableViewState="false">
-            <headertemplate>
+            <HeaderTemplate>
                 <ul>
-            </headertemplate>
-            <itemtemplate>
+            </HeaderTemplate>
+            <ItemTemplate>
                 <li><%# Eval("Error") %></li>
-            </itemtemplate>
-            <footertemplate>
+            </ItemTemplate>
+            <FooterTemplate>
                 </ul>
-            </footertemplate>
+            </FooterTemplate>
         </asp:Repeater>
     </div>
 </asp:Panel>
