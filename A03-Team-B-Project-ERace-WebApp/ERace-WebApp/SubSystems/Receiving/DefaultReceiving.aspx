@@ -35,7 +35,7 @@
             <asp:Label ID="VendorAddress" runat="server" ></asp:Label>
         </div>
         <div class="col-2">
-            <asp:Button ID="ReceiveShipment" runat="server" Text="Receive Shipment" style="background-color:aqua"/>
+            <asp:Button ID="ReceiveShipment" runat="server" Text="Receive Shipment" style="background-color:aqua" OnClick="ReceiveShipment_Click"/>
         </div>
     </div>
      <div class="row">
@@ -78,7 +78,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Received Units" ItemStyle-BorderStyle="Solid" ItemStyle-Width="180px" ItemStyle-HorizontalAlign="Left" HeaderStyle-BorderStyle="Solid" HeaderStyle-HorizontalAlign="Left" HeaderStyle-BorderColor="Black" ItemStyle-Wrap="false">
                 <ItemTemplate>
-                    <asp:TextBox ID="UnitReceived" runat="server" Text='<%# Eval("UnitReceived") %>' Width="50px" TextMode="Number" step="1" min="0"></asp:TextBox>
+                    <asp:TextBox ID="UnitReceived" runat="server" Text='<%# Eval("UnitReceived") %>' Width="50px" TextMode="Number" step="1" min="0">Text="0"</asp:TextBox>
                     <asp:Label runat="server" ID="Unit" Text='<%# Eval("Unit") %>' Width="130px"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>

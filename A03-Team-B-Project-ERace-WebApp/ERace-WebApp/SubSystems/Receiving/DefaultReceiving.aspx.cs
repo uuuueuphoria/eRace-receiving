@@ -150,7 +150,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                 UnorderedItem item = new UnorderedItem();
                 item.ItemName = (UnorderedTable.FooterRow.FindControl("ItemNameFooter") as TextBox).Text;
                 item.VendorProductID = (UnorderedTable.FooterRow.FindControl("VendorProductIDFooter") as TextBox).Text;
-                item.Quantity = int.Parse((UnorderedTable.FooterRow.FindControl("QuantityFooter") as TextBox).Text);
+                item.Quantity = (UnorderedTable.FooterRow.FindControl("QuantityFooter") as TextBox).Text==""?0:int.Parse((UnorderedTable.FooterRow.FindControl("QuantityFooter") as TextBox).Text);
                 item.OrderID = (int.Parse(PurchaseOrderDropDownList.SelectedValue));
                 if (item.ItemName == "")
                 {
@@ -166,17 +166,33 @@ namespace ERace_WebApp.SubSystems.Receiving
                 }
                 MessageUserControl.TryRun(() =>
                 {
-                    var controller = new PurchaseOrderController();
-                    controller.InsertUnorderedItem(item);
-                    UnorderedTable.Visible = true;
-                    UnorderedTable.DataSource = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
-                    UnorderedTable.DataBind();
-                    ForceClose.Visible = true;
-                    ForceCloseReason.Visible = true;
-                    PurchaseOrderDisplay.Visible = true;
-                    ReceiveShipment.Enabled = true;
+                    var controll = new PurchaseOrderController();
+                    controll.InsertUnorderedItem(item);
+                    
                 },"Add New Unordered Item","Add Successful");
-                
+                var controller = new PurchaseOrderController();
+                List<UnorderedItem> items = controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+                if (items.Count == 0)
+                {
+                    List<UnorderedItem> dummyrow = new List<UnorderedItem>();
+                    UnorderedItem dummy = new UnorderedItem();
+                    dummyrow.Add(dummy);
+                    UnorderedTable.DataSource = dummyrow;
+                    UnorderedTable.DataBind();
+                    UnorderedTable.Rows[0].Visible = false;
+                    UnorderedTable.Visible = true;
+                    PurchaseOrderDisplay.Visible = true;
+                }
+                else
+                {
+                    UnorderedTable.DataSource = items;
+                    UnorderedTable.DataBind();
+                    PurchaseOrderDisplay.Visible = true;
+                }
+                ForceClose.Visible = true;
+                ForceCloseReason.Visible = true;
+                PurchaseOrderDisplay.Visible = true;
+                ReceiveShipment.Enabled = true;
             }
         }
 
@@ -243,6 +259,72 @@ namespace ERace_WebApp.SubSystems.Receiving
             PurchaseOrderDropDownList.DataBind();
             PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
             PurchaseOrderDropDownList.SelectedIndex = -1;
+        }
+
+        protected void ReceiveShipment_Click(object sender, EventArgs e)
+        {
+            int orderId= int.Parse(PurchaseOrderDropDownList.SelectedValue);
+            SecurityController ssysmgr = new SecurityController();
+            int? employeeid = ssysmgr.GetCurrentUserEmployeeId(User.Identity.Name);
+            int id = employeeid ?? default(int);
+            List<ItemReceived> received = new List<ItemReceived>();
+            foreach (GridViewRow row in PurchaseOrderDisplay.Rows)
+            {
+                if((row.FindControl("UnitReceived") as TextBox).Text != "" || (row.FindControl("QtySalvaged") as TextBox).Text != "")
+                {
+                    ItemReceived item = new ItemReceived();
+                    item.OrderDetailID = int.Parse((row.FindControl("OrderDetailID") as Label).Text);
+                    item.QtyOrdered = int.Parse((row.FindControl("QtyOrdered") as Label).Text);
+                    item.QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
+                    item.UnitReceived = (row.FindControl("UnitReceived") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("UnitReceived") as TextBox).Text);
+                    item.QtySalvaged = (row.FindControl("QtySalvaged") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("QtySalvaged") as TextBox).Text);
+                    received.Add(item);
+                }    
+            }
+            List<ItemReturned> returns = new List<ItemReturned>();
+            foreach(GridViewRow row in UnorderedTable.Rows)
+            {
+                ItemReturned returnItem = new ItemReturned();
+                returnItem.OrderDetailID = null;
+                returnItem.UnOrderedItem = (row.FindControl("ItemName") as Label).Text;
+                returnItem.VendorProductID = (row.FindControl("VendorProductID") as Label).Text;
+                returnItem.ItemQuantity = int.Parse((row.FindControl("Quantity") as Label).Text);
+                returnItem.Comment = "Not on original order";
+                if(returnItem.ItemQuantity!=0 && returnItem.VendorProductID != null && returnItem.UnOrderedItem!="")
+                {
+                    returns.Add(returnItem);
+                }
+            }
+            List<ItemReturned> rejects = new List<ItemReturned>();
+            foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
+            {
+                if((row.FindControl("UnitRejected") as TextBox).Text != "")
+                {
+                    ItemReturned reject = new ItemReturned();
+                    reject.OrderDetailID = int.Parse((row.FindControl("OrderDetailID") as Label).Text);
+                    reject.UnOrderedItem = null;
+                    reject.ItemUnit = (row.FindControl("UnitRejected") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("UnitRejected") as TextBox).Text);
+                    reject.QtySalvaged = (row.FindControl("QtySalvaged") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("QtySalvaged") as TextBox).Text);
+                    reject.Comment = (row.FindControl("Reason") as TextBox).Text;
+                    reject.VendorProductID = null;
+                    rejects.Add(reject);
+                }
+            }
+            MessageUserControl.TryRun(() =>
+            {
+                var controller = new PurchaseOrderController();
+                controller.ReceiveOrder(orderId, id, received, returns, rejects);
+            }, "Receive Order", "Successful receive the order");
+            var tempcontroller = new PurchaseOrderController();
+            PurchaseOrderDropDownList.DataBind();
+            PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
+            PurchaseOrderDropDownList.SelectedIndex = -1;
+            VendorAddress.Text = "";
+            VendorContact.Text = "";
+            VendorName.Text = "";
+            PhoneNumber.Text = "";
+            UnorderedTable.Visible = false;
+            PurchaseOrderDisplay.Visible = false;
         }
     }
 }

@@ -168,6 +168,10 @@ namespace ERaceSystem.BLL
             }
         }
 
+        public void ReceiveOrder(int orderid, int employeeid, List<ItemReceived>received, List<ItemReturned> returns, List<ItemReturned> rejects)
+        {
+
+        }
         public void InsertUnorderedItem(UnorderedItem item)
         {
             using (var context = new ERaceSystemContext())
@@ -177,7 +181,23 @@ namespace ERaceSystem.BLL
                              select x).FirstOrDefault();
                 if (exists==null)
                 {
-                    throw new Exception("The current order does not exist.");
+                    errors.Add("The current order does not exist.");
+                }
+                if (item.ItemName == "")
+                {
+                    errors.Add("Item Name is required");
+                }
+                if(item.VendorProductID=="")
+                {
+                    errors.Add("Vendor Product ID is required");
+                }
+                if (item.Quantity == 0)
+                {
+                    errors.Add("Quantity is required");
+                }
+                if (errors.Count > 0)
+                {
+                    throw new BusinessRuleException("your transaction contains following errors: ", errors);
                 }
                 else
                 {

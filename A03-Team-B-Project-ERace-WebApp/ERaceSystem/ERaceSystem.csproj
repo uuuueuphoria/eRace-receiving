@@ -108,6 +108,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EmployeeItem.cs" />
     <Compile Include="ViewModels\Purchasing\VendorList.cs" />
+    <Compile Include="ViewModels\Receiving\ItemReceived.cs" />
+    <Compile Include="ViewModels\Receiving\ItemReturned.cs" />
     <Compile Include="ViewModels\Receiving\ProductInventory.cs" />
     <Compile Include="ViewModels\Receiving\PurchaseOrderDetail.cs" />
     <Compile Include="ViewModels\Receiving\PurchaseOrderList.cs" />
