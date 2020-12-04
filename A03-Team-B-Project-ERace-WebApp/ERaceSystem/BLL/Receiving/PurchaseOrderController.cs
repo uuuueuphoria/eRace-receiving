@@ -120,6 +120,7 @@ namespace ERaceSystem.BLL
                                            where x.OrderID == OrderId
                                            select x).FirstOrDefault();
                     purchaseOrder.Closed = true;
+                    purchaseOrder.Comment = Reason;
                     context.Entry(purchaseOrder).State = System.Data.Entity.EntityState.Modified;
                     List < UnOrderedItem > exists = (from x in context.UnOrderedItems
                                                      where x.OrderID == OrderId
