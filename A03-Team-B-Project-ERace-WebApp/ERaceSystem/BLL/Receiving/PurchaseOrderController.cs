@@ -69,11 +69,15 @@ namespace ERaceSystem.BLL
                                  OrderedUnits = x.OrderUnitSize > 1 ? x.Quantity + " x case of " + x.OrderUnitSize : x.Quantity + " ea",
                                  QtyOrdered = x.Quantity * x.OrderUnitSize,
                                  Unit = x.OrderUnitSize > 1 ? " x case of " + x.OrderUnitSize : " ea",
-                                 QtyOutstanding = (x.Quantity * x.OrderUnitSize -(from y in context.ReceiveOrderItems
+                                 QtyOutstanding = ((x.Quantity * x.OrderUnitSize -(from y in context.ReceiveOrderItems
                                                                                   where y.OrderDetailID == x.OrderDetailID
                                                                                   select y.ItemQuantity).Sum())==null?(x.Quantity*x.OrderUnitSize): (x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
                                                                                                                                                                                      where y.OrderDetailID == x.OrderDetailID
-                                                                                                                                                                                     select y.ItemQuantity).Sum()),
+                                                                                                                                                                                     select y.ItemQuantity).Sum()))<0?0: (x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
+                                                                                                                                                                                                                                                          where y.OrderDetailID == x.OrderDetailID
+                                                                                                                                                                                                                                                          select y.ItemQuantity).Sum()) == null ? (x.Quantity * x.OrderUnitSize) : (x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
+                                                                                                                                                                                                                                                                                                                                                                    where y.OrderDetailID == x.OrderDetailID
+                                                                                                                                                                                                                                                                                                                                                                    select y.ItemQuantity).Sum()),
                                  UnitReceived = null,
                                  UnitRejected = null,
                                  Reason = "",
@@ -171,6 +175,23 @@ namespace ERaceSystem.BLL
             }
         }
 
+        public void DeleteAllUnorderedItem(int orderid)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+
+                List<UnOrderedItem> exists = (from x in context.UnOrderedItems
+                                            where x.OrderID==orderid
+                                        select x).ToList();
+                foreach(UnOrderedItem item in exists)
+                {
+                    context.UnOrderedItems.Remove(item);
+                }
+                //commit
+                context.SaveChanges();
+            }
+        }
+
         int index = 0;
         public void ReceiveOrder(int orderid, int employeeid, List<ItemReceived>received, List<ItemReturned> returns, List<ItemReturned> rejects,int unclosedRow)
         {
@@ -217,6 +238,48 @@ namespace ERaceSystem.BLL
                         {
                             errors.Add("You cannot receive item not on original order");
                         }
+                        if (item.UnitRejected < 0)
+                        {
+                            errors.Add("Unit reject cannot be negative");
+                        }
+                        if (item.UnitReceived < 0)
+                        {
+                            errors.Add("Unit received cannot be negative");
+                        }
+                        if (item.QtySalvaged < 0)
+                        {
+                            errors.Add("Unit salvaged cannot be negative");
+                        }
+                    }
+                    foreach (ItemReturned item in returns)
+                    {
+                        if (item.ItemQuantity <= 0)
+                        {
+                            errors.Add("Return quantity cannot be 0 or negative");
+                        }
+                    }
+                    foreach (ItemReturned item in rejects)
+                    {
+                        if (item.ItemUnit <= 0)
+                        {
+                            errors.Add("Rejected unit must be bigger than 0");
+                        }
+                        if (item.QtySalvaged < 0)
+                        {
+                            errors.Add("Quantity salvaged cannot be less than 0");
+                        }
+                        int unitsize = (from x in context.OrderDetails
+                                        where x.OrderDetailID == item.OrderDetailID
+                                        select x.OrderUnitSize).FirstOrDefault();
+                        if(unitsize==1&& item.QtySalvaged > 0)
+                        {
+                            errors.Add("You cannot salvaged item if is not bulk");
+                        }
+                        if (item.ItemUnit > 0 && item.Comment == "")
+                        {
+                            errors.Add("You must provide a rejection reason");
+                        }
+
                     }
                     if (errors.Count() > 0)
                     {
@@ -254,7 +317,7 @@ namespace ERaceSystem.BLL
                                            where x.ProductID == productid
                                            select x).FirstOrDefault();
                             product.QuantityOnHand = product.QuantityOnHand + row.ItemQuantity;
-                            product.QuantityOnOrder = (product.QuantityOnOrder - row.ItemQuantity) < 0 ? 0 : (product.QuantityOnOrder - row.ItemQuantity);
+                            product.QuantityOnOrder = (product.QuantityOnOrder - row.ItemQuantity) <= 0 ? 0 : (product.QuantityOnOrder - row.ItemQuantity);
                             context.Entry(product).State = System.Data.Entity.EntityState.Modified;
                         }
 
@@ -331,9 +394,9 @@ namespace ERaceSystem.BLL
                 {
                     errors.Add("Vendor Product ID is required");
                 }
-                if (item.Quantity == 0)
+                if (item.Quantity <= 0)
                 {
-                    errors.Add("Quantity is required");
+                    errors.Add("Quantity is required and cannot be negative");
                 }
                 if (errors.Count > 0)
                 {

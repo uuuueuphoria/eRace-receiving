@@ -122,6 +122,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                     }
                    //controller.DeleteUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     UnorderedTable.Visible = true;
+                    controller.DeleteAllUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     List<UnorderedItem> items= controller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
                     if (items.Count==0)
                     {
@@ -163,7 +164,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                 {
                     MessageUserControl.ShowInfo("add new item", "Vendor ID must be provided");
                 }
-                if (item.Quantity == 0)
+                if (item.Quantity <= 0)
                 {
                     MessageUserControl.ShowInfo("add new item", "Quantity must be provided");
                 }
