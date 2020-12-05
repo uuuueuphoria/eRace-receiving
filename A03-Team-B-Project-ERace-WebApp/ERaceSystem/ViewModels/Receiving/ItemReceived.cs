@@ -13,6 +13,7 @@ namespace ERaceSystem.ViewModels.Receiving
         public int QtyOutstanding { get; set; }
         public int UnitReceived { get; set; }
         public int QtySalvaged { get; set; }
+        public int UnitRejected { get; set; }
 
     }
 }

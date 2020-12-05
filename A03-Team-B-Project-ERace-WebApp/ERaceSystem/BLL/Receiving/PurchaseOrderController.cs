@@ -59,6 +59,7 @@ namespace ERaceSystem.BLL
         {
             using (var context = new ERaceSystemContext())
             {
+
                 var result = from x in context.OrderDetails
                              where x.OrderID == OrderId
                              select new PurchaseOrderDetail
@@ -68,9 +69,11 @@ namespace ERaceSystem.BLL
                                  OrderedUnits = x.OrderUnitSize > 1 ? x.Quantity + " x case of " + x.OrderUnitSize : x.Quantity + " ea",
                                  QtyOrdered = x.Quantity * x.OrderUnitSize,
                                  Unit = x.OrderUnitSize > 1 ? " x case of " + x.OrderUnitSize : " ea",
-                                 QtyOutstanding = x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
+                                 QtyOutstanding = (x.Quantity * x.OrderUnitSize -(from y in context.ReceiveOrderItems
                                                                                   where y.OrderDetailID == x.OrderDetailID
-                                                                                  select y.ItemQuantity).FirstOrDefault(),
+                                                                                  select y.ItemQuantity).Sum())==null?(x.Quantity*x.OrderUnitSize): (x.Quantity * x.OrderUnitSize - (from y in context.ReceiveOrderItems
+                                                                                                                                                                                     where y.OrderDetailID == x.OrderDetailID
+                                                                                                                                                                                     select y.ItemQuantity).Sum()),
                                  UnitReceived = null,
                                  UnitRejected = null,
                                  Reason = "",
@@ -168,9 +171,146 @@ namespace ERaceSystem.BLL
             }
         }
 
-        public void ReceiveOrder(int orderid, int employeeid, List<ItemReceived>received, List<ItemReturned> returns, List<ItemReturned> rejects)
+        int index = 0;
+        public void ReceiveOrder(int orderid, int employeeid, List<ItemReceived>received, List<ItemReturned> returns, List<ItemReturned> rejects,int unclosedRow)
         {
+            using (var context = new ERaceSystemContext())
+            {
+                int employeeCategory = (from x in context.Employees
+                                        where x.EmployeeID == employeeid
+                                        select x.PositionID).FirstOrDefault();
+                if(employeeCategory!=7 && employeeCategory != 9)
+                {
+                    errors.Add("You are not allowed to receive the shipment");
+                }
+                else
+                {
+                    bool close = (from x in context.Orders
+                                  where x.OrderID == orderid
+                                  select x.Closed).FirstOrDefault();
+                    if (close == true)
+                    {
+                        errors.Add("Order is already closed. You cannot make anymore modification");
+                    }
+                    foreach (ItemReceived item in received)
+                    {
+                        int unitsize = (from x in context.OrderDetails
+                                        where x.OrderDetailID == item.OrderDetailID
+                                        select x.OrderUnitSize).FirstOrDefault();
+                        if(item.QtyOutstanding<=0 && item.QtySalvaged > 0)
+                        {
+                            errors.Add("There is no product outstanding");
+                        }
+                        if(item.QtySalvaged>0 && item.UnitRejected == 0)
+                        {
+                            errors.Add("You cannot salvage products without any rejection");
+                        }
+                        int QtyReceived = item.UnitReceived * unitsize + item.QtySalvaged;
+                        if (QtyReceived - item.QtyOutstanding > unitsize)
+                        {
+                            errors.Add("You receive too much products");
+                        }
+                        var exists = (from x in context.OrderDetails
+                                      where x.OrderDetailID == item.OrderDetailID
+                                      select x).FirstOrDefault();
+                        if (exists == null)
+                        {
+                            errors.Add("You cannot receive item not on original order");
+                        }
+                    }
+                    if (errors.Count() > 0)
+                    {
+                        throw new BusinessRuleException("your transaction contains following errors: ", errors);
+                    }
+                    else
+                    {
+                        ReceiveOrder table = new ReceiveOrder();
+                        table.EmployeeID = employeeid;
+                        table.OrderID = orderid;
+                        table.ReceiveDate = DateTime.Now;
+                        context.ReceiveOrders.Add(table);
+                        int receivedOrderID = (from x in context.ReceiveOrders
+                                               where x.OrderID == orderid && x.EmployeeID == employeeid
+                                               orderby x.ReceiveDate descending
+                                               select x.ReceiveOrderID).FirstOrDefault();
+                        foreach (ItemReceived item in received)
+                        {
+                            ReceiveOrderItem row = new ReceiveOrderItem();
+                            row.ReceiveOrderID = receivedOrderID;
+                            row.OrderDetailID = item.OrderDetailID;
+                            int Unitsize = (from x in context.OrderDetails
+                                            where x.OrderDetailID == item.OrderDetailID
+                                            select x.OrderUnitSize).FirstOrDefault();
+                            row.ItemQuantity = item.UnitReceived * Unitsize + item.QtySalvaged;
+                            if (item.QtyOutstanding - row.ItemQuantity <= 0)
+                            {
+                                index++;
+                            }
+                            context.ReceiveOrderItems.Add(row);
+                            int productid = (from x in context.OrderDetails
+                                             where x.OrderDetailID == item.OrderDetailID
+                                             select x.ProductID).FirstOrDefault();
+                            var product = (from x in context.Products
+                                           where x.ProductID == productid
+                                           select x).FirstOrDefault();
+                            product.QuantityOnHand = product.QuantityOnHand + row.ItemQuantity;
+                            product.QuantityOnOrder = (product.QuantityOnOrder - row.ItemQuantity) < 0 ? 0 : (product.QuantityOnOrder - row.ItemQuantity);
+                            context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                        }
 
+                        foreach (ItemReturned item in returns)
+                        {
+                            ReturnOrderItem turnback = new ReturnOrderItem();
+                            turnback.ReceiveOrderID = receivedOrderID;
+                            turnback.OrderDetailID = null;
+                            turnback.UnOrderedItem = item.UnOrderedItem;
+                            turnback.ItemQuantity = (int)item.ItemQuantity;
+                            turnback.Comment = item.Comment;
+                            turnback.VendorProductID = item.VendorProductID;
+                            context.ReturnOrderItems.Add(turnback);
+                        }
+                        foreach (ItemReturned item in rejects)
+                        {
+                            ReturnOrderItem turnback = new ReturnOrderItem();
+                            turnback.ReceiveOrderID = receivedOrderID;
+                            turnback.OrderDetailID = item.OrderDetailID;
+                            turnback.UnOrderedItem = null;
+                            int unitsize = (from x in context.OrderDetails
+                                            where x.OrderDetailID == item.OrderDetailID
+                                            select x.OrderUnitSize).FirstOrDefault();
+                            turnback.ItemQuantity = (int)item.ItemUnit * unitsize - (int)item.QtySalvaged;
+                            turnback.Comment = item.Comment;
+                            turnback.VendorProductID = null;
+                            context.ReturnOrderItems.Add(turnback);
+                        }
+                        if (index == unclosedRow)
+                        {
+                            //close the order
+                            Order purchaseOrder = (from x in context.Orders
+                                                   where x.OrderID == orderid
+                                                   select x).FirstOrDefault();
+                            purchaseOrder.Closed = true;
+                            context.Entry(purchaseOrder).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        //delete the unordereditem
+                        List<UnOrderedItem> exists = (from x in context.UnOrderedItems
+                                                      where x.OrderID == orderid
+                                                      select x).ToList();
+                        if (exists != null)
+                        {
+                            foreach (UnOrderedItem item in exists)
+                            {
+                                context.UnOrderedItems.Remove(item);
+                            }
+                        }
+                    }
+                    }
+                
+                
+                  //commit
+                  context.SaveChanges();
+            }
+            
         }
         public void InsertUnorderedItem(UnorderedItem item)
         {

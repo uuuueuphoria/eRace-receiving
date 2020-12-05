@@ -37,6 +37,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                         {
                             LoggedUser.Text = item.LastName + ", " + item.FirstName;
                             ReceiveShipment.Enabled = false;
+                            ReceiveShipment.Visible = false;
                             ForceClose.Visible = false;
                             ForceCloseReason.Visible = false;
                             UnorderedTable.Visible = false;    
@@ -83,7 +84,8 @@ namespace ERace_WebApp.SubSystems.Receiving
                 PhoneNumber.Text = "";
                 PurchaseOrderDisplay.DataSource = null;
                 PurchaseOrderDisplay.DataBind();
-                PurchaseOrderDisplay.Visible = false;
+                PurchaseOrderDisplay.Visible = false; 
+                ReceiveShipment.Visible = false;
                 ReceiveShipment.Enabled = false;
                 ForceClose.Visible = false;
                 ForceCloseReason.Visible = false;
@@ -108,10 +110,11 @@ namespace ERace_WebApp.SubSystems.Receiving
                     PurchaseOrderDisplay.Visible = true;
                     ForceClose.Visible = true;
                     ForceCloseReason.Visible = true;
-                    foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
+                    ReceiveShipment.Visible = true;
+                    foreach (GridViewRow row in PurchaseOrderDisplay.Rows)
                     {
                         int QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
-                        if (QtyOutstanding == 0)
+                        if (QtyOutstanding <= 0)
                         {
                             (row.FindControl("UnitReceived") as TextBox).Visible = false;
                             (row.FindControl("Unit") as Label).Visible = false;
@@ -187,12 +190,14 @@ namespace ERace_WebApp.SubSystems.Receiving
                 {
                     UnorderedTable.DataSource = items;
                     UnorderedTable.DataBind();
+                    UnorderedTable.Visible = true;
                     PurchaseOrderDisplay.Visible = true;
                 }
                 ForceClose.Visible = true;
                 ForceCloseReason.Visible = true;
                 PurchaseOrderDisplay.Visible = true;
                 ReceiveShipment.Enabled = true;
+                ReceiveShipment.Visible = true;
             }
         }
 
@@ -229,6 +234,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                             UnorderedTable.DataBind();
                         }
                     }, "Remove Unordered Item", "Remove Successful");
+                ReceiveShipment.Visible = true;
                 }
             }
 
@@ -256,13 +262,14 @@ namespace ERace_WebApp.SubSystems.Receiving
                 controller.ForceCloseOrder(OrderID, reason, items);
             }, "Force Close", "Successful close the order");
             var tempcontroller = new PurchaseOrderController();
+            PurchaseOrderDropDownList.SelectedIndex = -1;
             PurchaseOrderDropDownList.DataBind();
             PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
-            PurchaseOrderDropDownList.SelectedIndex = -1;
         }
 
         protected void ReceiveShipment_Click(object sender, EventArgs e)
         {
+            int unclosedRow = 0;
             int orderId= int.Parse(PurchaseOrderDropDownList.SelectedValue);
             SecurityController ssysmgr = new SecurityController();
             int? employeeid = ssysmgr.GetCurrentUserEmployeeId(User.Identity.Name);
@@ -270,6 +277,10 @@ namespace ERace_WebApp.SubSystems.Receiving
             List<ItemReceived> received = new List<ItemReceived>();
             foreach (GridViewRow row in PurchaseOrderDisplay.Rows)
             {
+                if(int.Parse((row.FindControl("QtyOutstanding") as Label).Text) > 0)
+                {
+                    unclosedRow++;
+                }
                 if((row.FindControl("UnitReceived") as TextBox).Text != "" || (row.FindControl("QtySalvaged") as TextBox).Text != "")
                 {
                     ItemReceived item = new ItemReceived();
@@ -278,6 +289,7 @@ namespace ERace_WebApp.SubSystems.Receiving
                     item.QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
                     item.UnitReceived = (row.FindControl("UnitReceived") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("UnitReceived") as TextBox).Text);
                     item.QtySalvaged = (row.FindControl("QtySalvaged") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("QtySalvaged") as TextBox).Text);
+                    item.UnitRejected= (row.FindControl("UnitRejected") as TextBox).Text == "" ? 0 : int.Parse((row.FindControl("UnitRejected") as TextBox).Text);
                     received.Add(item);
                 }    
             }
@@ -313,16 +325,37 @@ namespace ERace_WebApp.SubSystems.Receiving
             MessageUserControl.TryRun(() =>
             {
                 var controller = new PurchaseOrderController();
-                controller.ReceiveOrder(orderId, id, received, returns, rejects);
+                controller.ReceiveOrder(orderId, id, received, returns, rejects,unclosedRow);
             }, "Receive Order", "Successful receive the order");
             var tempcontroller = new PurchaseOrderController();
+            PurchaseOrderDropDownList.SelectedIndex = -1;
             PurchaseOrderDropDownList.DataBind();
             PurchaseOrderDropDownList.Items.Insert(0, new ListItem("Select a PO", "-1"));
-            PurchaseOrderDropDownList.SelectedIndex = -1;
             VendorAddress.Text = "";
             VendorContact.Text = "";
             VendorName.Text = "";
             PhoneNumber.Text = "";
+            List<PurchaseOrderDetail> info = tempcontroller.GetPurchaseOrderDetails(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+            PurchaseOrderDisplay.DataSource = info;
+            PurchaseOrderDisplay.DataBind();
+            List<UnorderedItem> items = tempcontroller.GetUnorderedItem(int.Parse(PurchaseOrderDropDownList.SelectedValue));
+            ForceClose.Visible = false;
+            ForceCloseReason.Visible = false;
+            ReceiveShipment.Visible = false;
+            if (items.Count == 0)
+            {
+                List<UnorderedItem> dummyrow = new List<UnorderedItem>();
+                UnorderedItem dummy = new UnorderedItem();
+                dummyrow.Add(dummy);
+                UnorderedTable.DataSource = dummyrow;
+                UnorderedTable.DataBind();
+                UnorderedTable.Rows[0].Visible = false;
+            }
+            else
+            {
+                UnorderedTable.DataSource = items;
+                UnorderedTable.DataBind();
+            }
             UnorderedTable.Visible = false;
             PurchaseOrderDisplay.Visible = false;
         }
