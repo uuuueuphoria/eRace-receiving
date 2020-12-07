@@ -61,6 +61,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,6 +108,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EmployeeItem.cs" />
     <Compile Include="ViewModels\Purchasing\VendorList.cs" />
+    <Compile Include="ViewModels\Receiving\ItemReceived.cs" />
+    <Compile Include="ViewModels\Receiving\ItemReturned.cs" />
+    <Compile Include="ViewModels\Receiving\ProductInventory.cs" />
     <Compile Include="ViewModels\Receiving\PurchaseOrderDetail.cs" />
     <Compile Include="ViewModels\Receiving\PurchaseOrderList.cs" />
     <Compile Include="ViewModels\Receiving\SelectionList.cs" />
