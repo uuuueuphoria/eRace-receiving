@@ -46,5 +46,6 @@ namespace ERaceSystem.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StoreRefund> StoreRefunds1 { get; set; }
+        public ICollection<object> ReturnedItems { get; internal set; }
     }
 }

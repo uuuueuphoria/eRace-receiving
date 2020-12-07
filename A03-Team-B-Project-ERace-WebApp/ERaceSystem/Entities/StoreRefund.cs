@@ -26,5 +26,6 @@ namespace ERaceSystem.Entities
         public virtual Invoice Invoice1 { get; set; }
 
         public virtual Product Product { get; set; }
+        public Invoice RefundInvoice { get; internal set; }
     }
 }
