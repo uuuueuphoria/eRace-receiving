@@ -183,11 +183,14 @@
             </asp:TemplateField>
             <asp:TemplateField ItemStyle-BorderStyle="Solid" ItemStyle-Width="30px" HeaderStyle-BorderColor="Black" HeaderStyle-BorderStyle="Solid" FooterStyle-BorderStyle="Solid" FooterStyle-BorderColor="Black">
                 <ItemTemplate>
-                    <asp:ImageButton ImageUrl="~/icons/delete.jpg" runat="server" CommandArgument="Delete" CommandName="Delete" ToolTip="Delete" Width="30px" Height="30px"/>
+                    <asp:LinkButton runat="server" CommandArgument="Delete" CommandName="Delete" ToolTip="Delete" Width="30px" Height="30px"><i class="far fa-times-circle" style="color:red; font-size:2rem;"></i></asp:LinkButton>
+                   <%-- <asp:ImageButton ImageUrl="~/icons/delete.jpg" runat="server" CommandArgument="Delete" CommandName="Delete" ToolTip="Delete" Width="30px" Height="30px"/>--%>
                 </ItemTemplate>
                 <FooterTemplate>
-                    <asp:ImageButton ImageUrl="~/icons/new.png" runat="server" CommandArgument="New"
-                        CommandName="New" ToolTip="New" Width="30px" Height="30px"/>
+                    <asp:LinkButton runat="server" CommandArgument="New" CommandName="New" ToolTip="New" Width="30px" Height="30px">
+                        <i class="far fa-plus-square" style="color:limegreen; font-size:2.1rem";></i></asp:LinkButton>
+                    <%--<asp:ImageButton ImageUrl="~/icons/new.png" runat="server" CommandArgument="New"
+                        CommandName="New" ToolTip="New" Width="30px" Height="30px"/>--%>
                 </FooterTemplate>
             </asp:TemplateField>
         </Columns>

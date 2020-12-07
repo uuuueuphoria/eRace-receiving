@@ -59,6 +59,7 @@
                 <li>Set up webpage for subfolders</li>
                 <li>Create Team Logo</li>
                 <li>Edit Default page, Contact pages</li>
+                <li>Create About page with connectionstring and login info</li>
                 <li>Navigation on Site Master</li>
                 <li>Reverse Engineering database</li>
             </ul>
