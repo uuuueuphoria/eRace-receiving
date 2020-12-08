@@ -331,7 +331,6 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void ProductDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ProductDDL.SelectedValue = ProductDDL.SelectedItem.Value;
         }
     }
 }
