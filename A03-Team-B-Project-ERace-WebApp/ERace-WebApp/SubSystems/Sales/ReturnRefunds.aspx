@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="jumbotron">
-            <h1>InStore Sales</h1>
+            <h1>Refunds/ Returns </h1>
         </div>
         <div class="col-2">
             <asp:Label ID="Label7" runat="server" Text="User: "></asp:Label>&nbsp;
@@ -21,10 +21,23 @@
                 <uc1:MessageUserControl runat="server" id="MessageUserControl" />
         </div>
     </div>
+    <div class="row">
+        <asp:Label ID="InvoiceArg" runat="server" visible="false"></asp:Label>
+    <asp:TextBox ID="OriginalInvoice" runat="server" TextMode="Number" ToolTip="Original Invoice #"></asp:TextBox>&nbsp;&nbsp;
+        <asp:LinkButton ID="LookupInvoice" runat="server" CssClass="btn" OnClick="LookupInvoice_Click">Lookup Invoice</asp:LinkButton>
+        <asp:LinkButton ID="Clear" runat="server"  CssClass="btn" OnClick="Clear_Click">Clear</asp:LinkButton>
+    </div>
 
-    
+    <asp:ListView ID="RefundInvoiceList" runat="server" ></asp:ListView>
 
 
+
+
+
+    <br />
+                <br />
+                <br />
+                <br />
     <div class="row">
         <div class="col-med-2">
             <a class="btn btn-default" href="InStoreSales.aspx">In-Store Sales Page &raquo;</a>

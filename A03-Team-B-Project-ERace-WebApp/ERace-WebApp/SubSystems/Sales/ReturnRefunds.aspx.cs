@@ -56,7 +56,15 @@ namespace ERace_WebApp.SubSystems.Sales
 
         }
 
-      
+        protected void Clear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void LookupInvoice_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }

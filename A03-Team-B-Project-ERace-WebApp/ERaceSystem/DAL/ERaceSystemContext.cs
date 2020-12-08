@@ -42,31 +42,31 @@ namespace ERaceSystem.DAL
         public virtual DbSet<Vendor> Vendors { get; set; }
 
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    // Each Invoice must be comprised of one or more InvoiceDetails
-        //    modelBuilder.Entity<Invoice>()
-        //         .HasMany(e => e.InvoiceDetails)
-        //         // Each InvoiceDetail must be a part of one and only one Invoice
-        //         .WithRequired(e => e.Invoice)
-        //         .WillCascadeOnDelete(false);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // Each Invoice must be comprised of one or more InvoiceDetails
+            modelBuilder.Entity<Invoice>()
+                 .HasMany(e => e.InvoiceDetails)
+                 // Each InvoiceDetail must be a part of one and only one Invoice
+                 .WithRequired(e => e.Invoice)
+                 .WillCascadeOnDelete(false);
 
-        //    // Each Invoice may be issued as a refund for one or more StoreRefunds
-        //    modelBuilder.Entity<Invoice>()
-        //         .HasMany(e => e.StoreRefunds)
-        //         // Each StoreRefund must be repaid through one and only one Invoice
-        //         .WithRequired(e => e.RefundInvoice)
-        //         .HasForeignKey(e => e.InvoiceID)
-        //         .WillCascadeOnDelete(false);
+            //// Each Invoice may be issued as a refund for one or more StoreRefunds
+            //modelBuilder.Entity<Invoice>()
+            //     .HasMany(e => e.StoreRefunds)
+            //     // Each StoreRefund must be repaid through one and only one Invoice
+            //     .WithRequired(e => e.RefundInvoice)
+            //     .HasForeignKey(e => e.InvoiceID)
+            //     .WillCascadeOnDelete(false);
 
-        //    // Each Invoice may be eligible to include one or more StoreRefunds
-        //    modelBuilder.Entity<Invoice>()
-        //         .HasMany(e => e.ReturnedItems)
-        //         // Each StoreRefund must be for something that was purchased on one and only one (original) Invoice
-        //         .WithRequired(e => e.OriginalInvoice)
-        //         .HasForeignKey(e => e.OriginalInvoiceID)
-        //         .WillCascadeOnDelete(false);
-        //}
+            //// Each Invoice may be eligible to include one or more StoreRefunds
+            //modelBuilder.Entity<Invoice>()
+            //     .HasMany(e => e.ReturnedItems)
+            //     // Each StoreRefund must be for something that was purchased on one and only one (original) Invoice
+            //     .WithRequired(e => e.OriginalInvoice)
+            //     .HasForeignKey(e => e.OriginalInvoiceID)
+            //     .WillCascadeOnDelete(false);
+        }
 
 
 

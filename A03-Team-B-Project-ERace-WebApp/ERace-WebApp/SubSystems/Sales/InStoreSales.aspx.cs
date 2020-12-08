@@ -59,8 +59,10 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void AddButton_Click(object sender, EventArgs e)
         {
+            List<InvoiceItem> invoicelist = new List<InvoiceItem>();
+            InvoiceItem newItem = new InvoiceItem();
             //Check if category selection was made
-            if(int.Parse(CategoryDDL.SelectedValue) == 0)
+            if (int.Parse(CategoryDDL.SelectedValue) == 0)
             {
                 MessageUserControl.ShowInfo("Category ", "Category not selected for associated products to list");
             }
@@ -90,8 +92,7 @@ namespace ERace_WebApp.SubSystems.Sales
 
                             ProductController sysmgr = new ProductController();
 
-                            List < InvoiceItem > invoicelist = new List<InvoiceItem>();
-                            InvoiceItem newItem = new InvoiceItem();
+                           
 
                            
                             //locate product to add
@@ -156,27 +157,29 @@ namespace ERace_WebApp.SubSystems.Sales
                                     }
                                 }
                                
-                                //refresh GV
-                                    InvoiceDetailGV.DataSource = invoicelist;
-                                    InvoiceDetailGV.DataBind();
-
-
-                                //Tabulate Subtotal, Tax and Total
-                                CalculateTotals(InvoiceDetailGV);
+                               
 
                             }
                         },"Success","Product has been added to the list");
+                        //refresh GV
+                        InvoiceDetailGV.DataSource = invoicelist;
+                        InvoiceDetailGV.DataBind();
+                        //CategoryDDL_SelectedIndexChanged(sender,e);
+
+                        //Tabulate Subtotal, Tax and Total
+                        //CalculateTotals(InvoiceDetailGV);
+
+                        ProductArg.Text = null;
+                        QtyArg.Text = null;
                     }
                 }
             }
-            QtyArg.Text = null;
-            ProductArg.Text = null;
-
+           
         }
 
         protected void CategoryDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ProductDDL.DataBind();
         }
 
         protected void RemoveProduct_Command(object sender, CommandEventArgs e)
@@ -262,13 +265,13 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void CalculateTotals(GridView invoiceitems)
         {
-            Subtotal.Text = "0.00";
+            Subtotal.Text = null;
             for (int index = 0; index < invoiceitems.Rows.Count; index++)
             {
-                Subtotal.Text = (int.Parse(Subtotal.Text) + int.Parse((InvoiceDetailGV.Rows[index].FindControl("QuantityBought") as TextBox).Text)).ToString();
+                Subtotal.Text += (decimal.Parse((InvoiceDetailGV.Rows[index].FindControl("Amount") as Label).Text)).ToString();
             }
             Subtotal.Text = string.Format("{0:0.00}", Subtotal.Text);
-            Tax.Text = string.Format("{0:0.00}", ((double.Parse(Subtotal.Text) * 0.05)));
+            Tax.Text = string.Format("{0:0.00}", ((decimal.Parse(Subtotal.Text) *(decimal)0.05)));
             Total.Text = string.Format("{0:0.00}", (decimal.Parse(Subtotal.Text) + decimal.Parse(Tax.Text)));
         }
 
@@ -277,16 +280,16 @@ namespace ERace_WebApp.SubSystems.Sales
             if (InvoiceDetailGV.Rows.Count > 0)
             {
                 //delete invoice items
-                InvoiceDetailGV = null;
+                InvoiceDetailGV.DataSource = null;
+                InvoiceDetailGV.DataBind();
 
                 //delete invoice totals
-                Subtotal.Text = null;
-                Tax.Text = null;
-                Total.Text = null;
+                Subtotal.Text = "0.00";
+                Tax.Text = "0.00";
+                Total.Text = "0.00";
 
-                CategoryDDL.SelectedValue = "0";
-                QtyArg.Text = null;
-                ProductArg.Text = null;
+                ProductDDL.SelectedIndex = 0;
+                CategoryDDL.SelectedIndex = 0;
             }
         }
 
@@ -300,7 +303,7 @@ namespace ERace_WebApp.SubSystems.Sales
             else
             {
                 List<InvoiceItem> invoice = new List<InvoiceItem>();
-                foreach(GridView item in InvoiceDetailGV.Rows)
+                foreach(GridViewRow item in InvoiceDetailGV.Rows)
                 {
                     InvoiceItem updateitem = new InvoiceItem();
                     //adjust item on GV with new Quantity
@@ -313,8 +316,22 @@ namespace ERace_WebApp.SubSystems.Sales
                     //add  existing invoice items  to list
                     invoice.Add(updateitem);
                 }
+
+                //Send Info to BLL for deletion
+                MessageUserControl.TryRun(() =>
+                {
+                    int newInvoiceID;
+                    InvoiceController sysmgr = new InvoiceController();
+                    newInvoiceID= sysmgr.Add_DetailsToInvoice(invoice, Subtotal.Text, Tax.Text, Total.Text);
+
+                },"Success","New invoice has been created in the system");
             }
 
+        }
+
+        protected void ProductDDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProductDDL.SelectedValue = ProductDDL.SelectedItem.Value;
         }
     }
 }

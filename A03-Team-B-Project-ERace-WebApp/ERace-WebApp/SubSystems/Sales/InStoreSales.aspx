@@ -23,14 +23,15 @@
                     <uc1:MessageUserControl runat="server" id="MessageUserControl" />
                 </div>
             </div>
-<%--            <div class="row">--%>
+        </div>
+        <div class="row">
             <div class="row">
                 <asp:DropDownList ID="CategoryDDL" runat="server" DataSourceID="CategoryODS" DataTextField="DisplayText" DataValueField="ValueId"
                      CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="CategoryDDL_SelectedIndexChanged" Width="300px">
                     <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
                 </asp:DropDownList>            
                 <asp:DropDownList ID="ProductDDL" runat="server" AutoPostBack="True" DataSourceID="ProductODS" DataTextField="DisplayText" DataValueField="ValueId"
-                     CssClass="form-control" AppendDataBoundItems="false" Width="300px">
+                     CssClass="form-control" AppendDataBoundItems="false" Width="300px" OnSelectedIndexChanged="ProductDDL_SelectedIndexChanged">
                     <asp:ListItem Value="0">[Select a Product]</asp:ListItem>
                 </asp:DropDownList>
                 <asp:Label ID="ProductArg" runat="server" Visible="false"></asp:Label>
@@ -91,30 +92,34 @@
                     </EmptyDataTemplate>
                 </asp:GridView>
             </div>
-            <div class="row">
-                <asp:Button ID="PayButton" runat="server" Text="Payment: Cash/Debit" 
-                    CssClass="btn btn-secondary btn-xs"
-                    style="color:antiquewhite; background-color:darkgreen; font-size:1em;" OnClick="PayButton_Click"/>
-                <asp:LinkButton ID="Clear" runat="server"  CssClass="btn" OnClick="Clear_Click">
-                     <i class="fas fa-shopping-cart" style="color:teal; font-size:1em;"></i>&nbsp;&nbsp;
-                    Clear Cart</asp:LinkButton>
-                <div class="col">
-                    <div class="row">
-                        <asp:Label ID="Label3" runat="server" Text="SubTotal:   ">&nbsp;&nbsp;&nbsp;</asp:Label>
-                        <asp:Label ID="Subtotal" runat="server" ></asp:Label>
-                    </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <asp:Label ID="Label3" runat="server" Text="SubTotal:   "></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="Subtotal" runat="server" ></asp:Label>
+                        </div>
                     
-                    <div class="row">
-                        <asp:Label ID="Label5" runat="server" Text="Tax:   ">&nbsp;&nbsp;&nbsp;</asp:Label>
-                        <asp:Label ID="Tax" runat="server" ></asp:Label>
-                    </div>
+                        <div class="row">
+                            <asp:Label ID="Label5" runat="server" Text="Tax:   "></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="Tax" runat="server" ></asp:Label>
+                        </div>
                     
+                        <div class="row">
+                            <asp:Label ID="Label8" runat="server" Text="Total:   "></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="Total" runat="server" ></asp:Label>
+                        </div>        
+                    </div> 
                     <div class="row">
-                        <asp:Label ID="Label8" runat="server" Text="Total:   ">&nbsp;&nbsp;&nbsp;</asp:Label>
-                        <asp:Label ID="Total" runat="server" ></asp:Label>
-                    </div>        
+                        <asp:Button ID="PayButton" runat="server" Text="Payment: Cash/Debit" 
+                            CssClass="btn btn-secondary btn-xs"
+                            style="color:antiquewhite; background-color:darkgreen; font-size:1em;" OnClick="PayButton_Click" />
+                        <asp:LinkButton ID="Clear" runat="server"  CssClass="btn" OnClick="Clear_Click">
+                             <i class="fas fa-shopping-cart" style="color:teal; font-size:1em;"></i>&nbsp;&nbsp;
+                            Clear Cart</asp:LinkButton>               
+                    </div>
                 </div>
-            </div>
+               
+           
 
 
     <%--    ODS Controls--%> 
@@ -131,7 +136,7 @@
 
              <div class="row">
                 <div class="col-med-2">
-                    <a class="btn btn-default" href="InStoreSales.aspx">In-Store Sales Page &raquo;</a>
+                    <a class="btn btn-default" href="ReturnRefunds.aspx">Returns/Refunds Page &raquo;</a>
        
                     <a class="btn btn-default" href="Default.aspx">Default Page &raquo;</a>
                 </div>

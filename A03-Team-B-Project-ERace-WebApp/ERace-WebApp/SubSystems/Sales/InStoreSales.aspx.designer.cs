@@ -114,24 +114,6 @@ namespace ERace_WebApp.SubSystems.Sales
         protected global::System.Web.UI.WebControls.GridView InvoiceDetailGV;
 
         /// <summary>
-        /// PayButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button PayButton;
-
-        /// <summary>
-        /// Clear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Clear;
-
-        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>
@@ -184,6 +166,24 @@ namespace ERace_WebApp.SubSystems.Sales
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Total;
+
+        /// <summary>
+        /// PayButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button PayButton;
+
+        /// <summary>
+        /// Clear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Clear;
 
         /// <summary>
         /// CategoryODS control.
