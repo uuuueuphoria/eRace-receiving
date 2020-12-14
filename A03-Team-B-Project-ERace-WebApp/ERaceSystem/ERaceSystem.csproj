@@ -72,7 +72,10 @@
   <ItemGroup>
     <Compile Include="BLL\CategoryController.cs" />
     <Compile Include="BLL\EmployeeController.cs" />
+    <Compile Include="BLL\Purchasing\OrderController.cs" />
+    <Compile Include="BLL\Purchasing\InventoryController.cs" />
     <Compile Include="BLL\Purchasing\VendorController.cs" />
+    <Compile Include="BLL\Purchasing\VendorInfo.cs" />
     <Compile Include="BLL\Receiving\PurchaseOrderController.cs" />
     <Compile Include="BLL\Sales\InvoiceController.cs" />
     <Compile Include="BLL\Sales\InvoiceDetailController.cs" />
@@ -107,7 +110,12 @@
     <Compile Include="Entities\VendorCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EmployeeItem.cs" />
-    <Compile Include="ViewModels\Purchasing\VendorList.cs" />
+    <Compile Include="ViewModels\Purchasing\OrderItemList.cs" />
+    <Compile Include="ViewModels\Purchasing\OrderList.cs" />
+    <Compile Include="ViewModels\Purchasing\ProductList.cs" />
+    <Compile Include="ViewModels\Purchasing\InventoryList.cs" />
+    <Compile Include="ViewModels\Purchasing\VendorInfo.cs" />
+    <Compile Include="ViewModels\Purchasing\SelectionList.cs" />
     <Compile Include="ViewModels\Receiving\ItemReceived.cs" />
     <Compile Include="ViewModels\Receiving\ItemReturned.cs" />
     <Compile Include="ViewModels\Receiving\ProductInventory.cs" />

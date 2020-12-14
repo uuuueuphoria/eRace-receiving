@@ -102,7 +102,7 @@
                                     Subsystems</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarSubMenu">
                                     <a class="dropdown-item"
-                                            href="~/SubSystems/Purchasing/Default.aspx"
+                                            href="~/SubSystems/Purchasing/Purchasing.aspx"
                                             style="color:black" runat="server">
                                        Purchasing Subsystem</a>
                                     <a class="dropdown-item"

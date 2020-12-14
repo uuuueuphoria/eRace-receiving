@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ERaceSystem.ViewModels
+namespace ERaceSystem.ViewModels.Purchasing
 {
-    public class VendorList
+    public class SelectionList
     {
         public int ValueId { get; set; }
         public string DisplayText { get; set; }

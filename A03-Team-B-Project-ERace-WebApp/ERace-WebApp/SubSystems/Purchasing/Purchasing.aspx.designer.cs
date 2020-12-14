@@ -15,6 +15,24 @@ namespace ERace_WebApp.SubSystems.Purchasing
     {
 
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
+        /// LoggedUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LoggedUser;
+
+        /// <summary>
         /// MessageUserControl control.
         /// </summary>
         /// <remarks>
@@ -33,21 +51,48 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// VendorNameDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList VendorNameDDL;
 
         /// <summary>
-        /// VendorDDLODS control.
+        /// Select control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource VendorDDLODS;
+        protected global::System.Web.UI.WebControls.Button Select;
+
+        /// <summary>
+        /// VendorInformation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label VendorInformation;
+
+        /// <summary>
+        /// RepeaterInventory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterInventory;
+
+        /// <summary>
+        /// VendorNameDDLODS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource VendorNameDDLODS;
     }
 }

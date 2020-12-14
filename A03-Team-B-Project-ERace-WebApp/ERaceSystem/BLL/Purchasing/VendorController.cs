@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#region Additional Namespace
-using ERaceSystem.ViewModels;
-using ERaceSystem.Entities;
+
+#region Additional namespaces
 using ERaceSystem.DAL;
+using ERaceSystem.Entities;
 using System.ComponentModel;
+using ERaceSystem.ViewModels;
+using ERaceSystem.ViewModels.Purchasing;
+using DMIT2018Common.UserControls;
 #endregion
 
 namespace ERaceSystem.BLL.Purchasing
@@ -17,14 +20,14 @@ namespace ERaceSystem.BLL.Purchasing
     public class VendorController
     {
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<VendorList> List_VendorNames()
+        public List<SelectionList> List_VendorNames()
         {
             using (var context = new ERaceSystemContext())
             {
 
                 var results = from x in context.Vendors
                               orderby x.Name
-                              select new VendorList
+                              select new SelectionList
                               {
                                   ValueId = x.VendorID,
                                   DisplayText = x.Name
@@ -35,12 +38,31 @@ namespace ERaceSystem.BLL.Purchasing
 
 
 
-        //public List<Vendor> Vendor_List()
+        //public List<VendorInfo> List_VendorInfo(int Vendorid)
         //{
         //    using (var context = new ERaceSystemContext())
         //    {
-        //        return context.Vendors.ToList();
+        //        var result = from x in context.Vendors
+        //                     where x.VendorID == Vendorid
+        //                     select new VendorInfo
+        //                     {
+        //                         VendorID = x.VendorID,
+        //                         Name = x.Name,
+        //                         Address = x.Address + " " + x.City,
+        //                         Phone = x.Phone,
+        //                         Contact = x.Contact
+        //                     };
+        //        return result.FirstOrDefault();
         //    }
         //}
+        public Vendor List_VendorInfo(int Vendorid)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                return context.Vendors.Find(Vendorid);
+            }
+        }
+
+
     }
 }
