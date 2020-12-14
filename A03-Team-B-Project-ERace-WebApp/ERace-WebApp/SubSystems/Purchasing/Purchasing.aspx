@@ -33,16 +33,19 @@
         <asp:Button ID="Save" runat="server" Text="Save" />
         <asp:Button ID="Cancel" runat="server" Text="Cancel" />
         <asp:Button ID="Delete" runat="server" Text="Remove" />
-
+        <br />
         <asp:Label ID="VendorInformation" runat="server" Text="Vendor Name - Contact - Phone"></asp:Label>
         <asp:Label ID="SubtotalText" runat="server" Text="Subtotal"></asp:Label>
         <asp:TextBox ID="Subtotal" runat="server" Enabled="false"></asp:TextBox>
-        <asp:TextBox ID="Comments" runat="server" Height="57px" Width="414px"></asp:TextBox>
+        <asp:TextBox ID="Comments" runat="server" Height="60px" Width="400px"></asp:TextBox>
+        <br />
         <asp:Label ID="TaxText" runat="server" Text="Tax"></asp:Label>
-        <asp:Label ID="TotalText" runat="server" Text="Total"></asp:Label>
         <asp:TextBox ID="Tax" runat="server" Enabled="false"></asp:TextBox>
+        <asp:Label ID="TotalText" runat="server" Text="Total"></asp:Label>
         <asp:TextBox ID="Total" runat="server" Enabled="false"></asp:TextBox>
+        <br />
         <asp:ListView ID="ListView1" runat="server"></asp:ListView>
+        <br />
         <asp:Repeater ID="Repeater1" runat="server"></asp:Repeater>
     </div>
 

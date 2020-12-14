@@ -150,15 +150,6 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Label TaxText;
 
         /// <summary>
-        /// TotalText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalText;
-
-        /// <summary>
         /// Tax control.
         /// </summary>
         /// <remarks>
@@ -166,6 +157,15 @@ namespace ERace_WebApp.SubSystems.Purchasing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Tax;
+
+        /// <summary>
+        /// TotalText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalText;
 
         /// <summary>
         /// Total control.
