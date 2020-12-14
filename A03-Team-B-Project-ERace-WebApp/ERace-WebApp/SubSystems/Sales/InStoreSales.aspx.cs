@@ -17,50 +17,50 @@ namespace ERace_WebApp.SubSystems.Sales
         {
             //test our security
             //are you logged in?
-            //if (Request.IsAuthenticated)
-            //{
-            //    if (User.IsInRole("Clerk"))
-            //    {
+            if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Clerk"))
+                {
 
-            //        //obtain the CustomerId on the security User record
-            //        SecurityController ssysmgr = new SecurityController();
-            //        int? employeeid = ssysmgr.GetCurrentUserEmployeeId(User.Identity.Name);
+                    //obtain the CustomerId on the security User record
+                    SecurityController ssysmgr = new SecurityController();
+                    int? employeeid = ssysmgr.GetCurrentUserEmployeeId(User.Identity.Name);
 
-            //        //need to convert the int? to an int for the call to the CustomerController method
-            //        //int custid = customerid == null ? default(int) : int.Parse(customerid.ToString());
-            //        int emplid = employeeid ?? default(int);
+                    //need to convert the int? to an int for the call to the CustomerController method
+                    //int custid = customerid == null ? default(int) : int.Parse(customerid.ToString());
+                    int emplid = employeeid ?? default(int);
 
-            //        MessageUserControl.TryRun(() =>
-            //        {
-            //            EmployeeController csysmgr = new EmployeeController();
-            //            EmployeeItem item = csysmgr.Employee_FindByID(emplid);
-            //            if (item == null)
-            //            {
-            //                LoggedUser.Text = "Unknown";
-            //                throw new Exception("Logged employee cannot be found on file ");
-            //            }
-            //            else
-            //            {
-            //                LoggedUser.Text = item.LastName + ", " + item.FirstName;
-            //            }
-            //        });
-            //    }
-            //    else
-            //    {
-            //        Response.Redirect("~/SubSystems/Sales/AccessDenied.aspx");
-            //    }
-            //}
-            //else
-            //{
-            //    Response.Redirect("~/Account/Login.aspx");
-            //}
+                    MessageUserControl.TryRun(() =>
+                    {
+                        EmployeeController csysmgr = new EmployeeController();
+                        EmployeeItem item = csysmgr.Employee_FindByID(emplid);
+                        if (item == null)
+                        {
+                            LoggedUser.Text = "Unknown";
+                            throw new Exception("Logged employee cannot be found on file ");
+                        }
+                        else
+                        {
+                            LoggedUser.Text = item.LastName + ", " + item.FirstName;
+                        }
+                    });
+                }
+                else
+                {
+                    Response.Redirect("~/SubSystems/Sales/AccessDenied.aspx");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Account/Login.aspx");
+            }
 
         }
 
         protected void AddButton_Click(object sender, EventArgs e)
         {
             List<InvoiceItem> invoicelist = new List<InvoiceItem>();
-            InvoiceItem newItem = new InvoiceItem();
+            InvoiceItem item =null;
             //Check if category selection was made
             if (int.Parse(CategoryDDL.SelectedValue) == 0)
             {
@@ -69,18 +69,23 @@ namespace ERace_WebApp.SubSystems.Sales
             else
             {
                 //Check if category selection was made
-                if (int.Parse(ProductDDL.SelectedValue) == 0)
+                if (ProductDDL.Items.Count == 0)
                 {
-                    MessageUserControl.ShowInfo("Product ", "Category not selected to add");
+                    MessageUserControl.ShowInfo("Product ", "Category selected has no products");
                 }
                 else
                 {
                             //collect ProductID
                             ProductArg.Text = ProductDDL.SelectedValue;
                     //Check if quantity was entered
+                    //this will blow up if no qty is entered. test for null qty
                     if(int.Parse(Quantity.Text) <= 0)
                     {
                         MessageUserControl.ShowInfo("Product Quantity ", "Please enter quantity amount greater than zero");
+                    }
+                    else if (Quantity.Text == null)
+                    {
+                        MessageUserControl.ShowInfo("Product Quantity ", "Please enter quantity in the available field");
                     }
                     else
                     {     
@@ -91,10 +96,6 @@ namespace ERace_WebApp.SubSystems.Sales
                         {
 
                             ProductController sysmgr = new ProductController();
-
-                           
-
-                           
                             //locate product to add
                             ProductItem info = sysmgr.Product_FindById(int.Parse(ProductDDL.SelectedValue));
                             //check if exists
@@ -103,7 +104,7 @@ namespace ERace_WebApp.SubSystems.Sales
                             }
                             else
                             {
-                                InvoiceItem item = new InvoiceItem()
+                                 item = new InvoiceItem()
                                 {
                                     ProductID = info.ProductID,
                                     ItemName = info.ItemName,
@@ -114,8 +115,7 @@ namespace ERace_WebApp.SubSystems.Sales
 
                                 //is GV populated?
                                 if (InvoiceDetailGV.Rows.Count == 0)
-                                {                            
-                                   
+                                {               
                                     invoicelist.Add(item);
                                 }
                                 if(InvoiceDetailGV.Rows.Count>0)
@@ -145,7 +145,6 @@ namespace ERace_WebApp.SubSystems.Sales
                                             existing.Price = decimal.Parse((row.FindControl("Price") as Label).Text);
                                             existing.Quantity = int.Parse((row.FindControl("QuantityBought") as TextBox).Text);
                                             existing.Amount = existing.Quantity * existing.Price;
-
                                         }
                                         //add  existing invoice items from GV to list
                                         invoicelist.Add(existing);                    
@@ -156,25 +155,20 @@ namespace ERace_WebApp.SubSystems.Sales
                                         invoicelist.Add(item);               
                                     }
                                 }
-                               
-                               
-
                             }
                         },"Success","Product has been added to the list");
                         //refresh GV
                         InvoiceDetailGV.DataSource = invoicelist;
                         InvoiceDetailGV.DataBind();
-                        //CategoryDDL_SelectedIndexChanged(sender,e);
 
                         //Tabulate Subtotal, Tax and Total
-                        //CalculateTotals(InvoiceDetailGV);
+                        CalculateTotals(InvoiceDetailGV);
 
                         ProductArg.Text = null;
                         QtyArg.Text = null;
                     }
                 }
             }
-           
         }
 
         protected void CategoryDDL_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,12 +259,14 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void CalculateTotals(GridView invoiceitems)
         {
-            Subtotal.Text = null;
+            Subtotal.Text = "0.00";
+            Tax.Text = null;
+            Total.Text = null;
             for (int index = 0; index < invoiceitems.Rows.Count; index++)
             {
-                Subtotal.Text += (decimal.Parse((InvoiceDetailGV.Rows[index].FindControl("Amount") as Label).Text)).ToString();
+                Subtotal.Text = (double.Parse(Subtotal.Text) + double.Parse((InvoiceDetailGV.Rows[index].FindControl("Amount") as Label).Text)).ToString();
             }
-            Subtotal.Text = string.Format("{0:0.00}", Subtotal.Text);
+            Subtotal.Text = string.Format("{0:0.00}", decimal.Parse(Subtotal.Text));
             Tax.Text = string.Format("{0:0.00}", ((decimal.Parse(Subtotal.Text) *(decimal)0.05)));
             Total.Text = string.Format("{0:0.00}", (decimal.Parse(Subtotal.Text) + decimal.Parse(Tax.Text)));
         }
@@ -324,11 +320,10 @@ namespace ERace_WebApp.SubSystems.Sales
                     InvoiceController sysmgr = new InvoiceController();
                     newInvoiceID= sysmgr.Add_DetailsToInvoice(invoice, Subtotal.Text, Tax.Text, Total.Text);
 
+                    InvoiceID.Text = newInvoiceID.ToString();
                 },"Success","New invoice has been created in the system");
             }
-
         }
-
         protected void ProductDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
         }

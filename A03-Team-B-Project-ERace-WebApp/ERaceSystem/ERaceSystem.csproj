@@ -126,8 +126,9 @@
     <Compile Include="ViewModels\Sales\InvoiceItem.cs" />
     <Compile Include="ViewModels\Sales\InvoiceList.cs" />
     <Compile Include="ViewModels\Sales\ProductItem.cs" />
+    <Compile Include="ViewModels\Sales\RefundInvoice.cs" />
     <Compile Include="ViewModels\Sales\SelectionList.cs" />
-    <Compile Include="ViewModels\Sales\StoreRefund.cs" />
+    <Compile Include="ViewModels\Sales\RefundItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -28,8 +28,8 @@
             </ul>
             <p>Known bug list</p>
             <ul>
-                <li>to be filled in</li>
-                <li>to be filled in</li>
+                <li>Was not able to make Refunds Page functional</li>
+                <li>Refunds Page not tested</li>
                 <li>to be filled in</li>
             </ul>
             <a class="btn btn-default" href="SubSystems/Sales/Default.aspx">Sales Page &raquo;</a>

@@ -42,6 +42,24 @@ namespace ERace_WebApp.SubSystems.Sales
         protected global::DMIT2018Common.UserControls.MessageUserControl MessageUserControl;
 
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
+        /// InvoiceID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label InvoiceID;
+
+        /// <summary>
         /// CategoryDDL control.
         /// </summary>
         /// <remarks>

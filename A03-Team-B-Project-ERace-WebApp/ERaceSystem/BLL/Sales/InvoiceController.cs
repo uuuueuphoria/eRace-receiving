@@ -15,6 +15,7 @@ using DMIT2018Common.UserControls;
 #endregion
 namespace ERaceSystem.BLL
 {
+    [DataObject]
     public class InvoiceController
     {
         public int Add_DetailsToInvoice(List<InvoiceItem> invoice, string subtotal, string tax, string total)
@@ -23,9 +24,9 @@ namespace ERaceSystem.BLL
             {
                 int newInvoiceID = 0;
                 List<string> errors = new List<string>();
-                Invoice newinvoice = new Invoice();
+                Invoice newinvoice = null;
                 List<InvoiceDetail> newdetails = new List<InvoiceDetail>();
-                InvoiceDetail itemdetail = new InvoiceDetail();
+                InvoiceDetail itemdetail = null;
 
                 //check invoice items were passed from web page
                 if (invoice == null)
@@ -43,63 +44,39 @@ namespace ERaceSystem.BLL
                     {
                         //TRX
                         //create instance of invoice
+                        newinvoice = new Invoice();
                         newinvoice.InvoiceDate = DateTime.Now;
                         newinvoice.SubTotal = decimal.Parse(subtotal);
                         newinvoice.Total = decimal.Parse(total);
                         newinvoice.GST = decimal.Parse(tax);
+                        newinvoice.EmployeeID = 20;     //James Calder
 
                         //create Invoice
                         context.Invoices.Add(newinvoice);
                         //load invoice details into list
                         foreach (InvoiceItem item in invoice)
                         {
-                            itemdetail.InvoiceID = newinvoice.InvoiceID;
+                            itemdetail = new InvoiceDetail();
                             itemdetail.Price = item.Price;
                             itemdetail.ProductID = item.ProductID;
-
-                            //is quantity amount valid
-                            if (item.Quantity <= 0)
-                            {
-                                errors.Add("Value entered is invalid. Quantity must be greater than zero.");
-                            }
-                            else
-                            {
-                                itemdetail.Quantity = item.Quantity;
-                            }
+                            itemdetail.Quantity = item.Quantity;
+                          
                             //Adding item to details list
-                            context.InvoiceDetails.Add(itemdetail);
-                        }
-                        //Add Invoice details to invoice.
-                        newinvoice.InvoiceDetails = newdetails;
+                            newinvoice.InvoiceDetails.Add(itemdetail);
+                        }                      
 
-                        //create Invoice
-                        //context.Invoices.Add(newinvoice);
-
-
-                        //get new invoice id
-                        //var checkinvoice = (from inv in context.Invoices
-                        //                where inv.InvoiceID == newinvoice.InvoiceID
-                        //                select inv).FirstOrDefault();
-
-                        var checkinvoice = (from inv in context.Invoices
-                                            where inv.SubTotal.ToString().Equals(subtotal)
-                                            && inv.GST.ToString().Equals(tax)
-                                            && inv.Total.ToString().Equals(total)
-                                            select inv).FirstOrDefault();
-                        if (checkinvoice == null)
+                        if (newinvoice == null)
                         {
                             errors.Add("Unable to create new invoice.");
                         }
                         else
                         {
                             //Grab invoice ID
-                            newInvoiceID = checkinvoice.InvoiceID;
+                            newInvoiceID = newinvoice.InvoiceID;
                             //Adjust product inventory
-                            foreach (InvoiceItem item in invoice)
+                            foreach (InvoiceDetail item in newinvoice.InvoiceDetails)
                             {
-                                //change quantity details
-                                Product detail = new Product();
-
+                              
                                 var existingProduct = (from prod in context.Products
                                                       where prod.ProductID == item.ProductID
                                                       select prod).FirstOrDefault();
@@ -110,15 +87,11 @@ namespace ERaceSystem.BLL
                                 }
                                 else
                                 {
-                                    //adjust quantities
-                                    detail.ProductID = existingProduct.ProductID;
-                                    detail.ItemName = existingProduct.ItemName;
-                                    detail.ItemPrice = decimal.Parse(item.Price.ToString());
-                                    detail.QuantityOnHand = existingProduct.QuantityOnHand - item.Quantity;
+                                                                  
+                                    existingProduct.QuantityOnHand = existingProduct.QuantityOnHand - item.Quantity;
+                                    //Update product record
+                                    context.Entry(existingProduct).Property(nameof(item)).IsModified = true;
 
-
-                                //Adding adjusted quantity details
-                                context.Products.Add(detail);
                                 }                              
                             }
                         }
@@ -137,5 +110,28 @@ namespace ERaceSystem.BLL
             }
 
         }
+        public RefundInvoice Invoice_FindById(int invoiceid)
+        {
+
+            using (var context = new ERaceSystemContext())
+            {
+                RefundInvoice invoice = new RefundInvoice();
+                invoice = (from inv in context.Invoices
+                           where inv.InvoiceID == invoiceid
+                           select new RefundInvoice
+                           {
+                               InvoiceID = inv.InvoiceID,
+                               InvoiceDate = inv.InvoiceDate,
+                               EmployeeID = inv.EmployeeID,
+                               SubTotal = inv.SubTotal,
+                               GST = inv.GST,
+                               Total = inv.Total
+                           }).FirstOrDefault();
+
+                return invoice;
+            }
+        }
+
+
     }
 }

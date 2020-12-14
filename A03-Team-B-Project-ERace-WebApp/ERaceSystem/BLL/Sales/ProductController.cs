@@ -38,7 +38,7 @@ namespace ERaceSystem.BLL
             using (var context = new ERaceSystemContext())
             {
                 var result = (from prod in context.Products
-                               where prod.CategoryID == productid
+                               where prod.ProductID == productid
                                select new ProductItem
                                {
                                    ProductID = prod.ProductID,
