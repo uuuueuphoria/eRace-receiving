@@ -54,19 +54,19 @@ namespace ERace_WebApp.SubSystems.Purchasing
             EmployeeItem info = new EmployeeItem();
             if (employeeid.HasValue)
             {
-                MessageUserControl.TryRun(() => {
+                MessageUserControl.TryRun(() =>
+                {
                     EmployeeController sysmgrUser = new EmployeeController();
                     info = sysmgrUser.Employee_FindByID(employeeid.Value);
                 });
             }
 
-
             VendorController vendorController = new VendorController();
             VendorInfo vendorinfo = vendorController.List_VendorInfo(int.Parse(VendorNameDDL.SelectedValue));
             //Vendor vendorinfo = VendorController.List_VendorInfo(int.Parse(VendorNameDDL.SelectedValue));
             //VendorInfo vendorinfo = null;    
-            
             VendorInformation.Text = vendorinfo.Name + " - " + vendorinfo.Contact + " - " + vendorinfo.Phone;
+
             InventoryController sysmgr = new InventoryController();
             List<InventoryList> datainfo = new List<InventoryList>();
             List<InventoryList> filteredDatainfo = new List<InventoryList>();
@@ -90,14 +90,8 @@ namespace ERace_WebApp.SubSystems.Purchasing
                 RepeaterInventory.DataSource = filteredDatainfo;
                 RepeaterInventory.DataBind();
 
-                OrderController OrderContoller = new OrderController();
-                OrderList Order = new OrderList();
-                Order = OrderContoller.GetVendorOrder(int.Parse(VendorNameDDL.SelectedValue), info.EmployeeID);
-
-
-
-
-            }, "Success", "VendorSelected");
+            }, "","");
+        }
 
 
 

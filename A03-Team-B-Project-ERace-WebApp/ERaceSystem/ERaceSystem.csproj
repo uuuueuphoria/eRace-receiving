@@ -75,7 +75,6 @@
     <Compile Include="BLL\Purchasing\OrderController.cs" />
     <Compile Include="BLL\Purchasing\InventoryController.cs" />
     <Compile Include="BLL\Purchasing\VendorController.cs" />
-    <Compile Include="BLL\Purchasing\VendorInfo.cs" />
     <Compile Include="BLL\Receiving\PurchaseOrderController.cs" />
     <Compile Include="BLL\Sales\InvoiceController.cs" />
     <Compile Include="BLL\Sales\InvoiceDetailController.cs" />

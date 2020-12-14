@@ -186,13 +186,22 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.ListView ListView1;
 
         /// <summary>
-        /// Repeater1 control.
+        /// RepeaterInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterInventory;
+
+        /// <summary>
+        /// vendorValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label vendorValidator;
 
         /// <summary>
         /// VendorNameDDLODS control.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERaceSystem.ViewModels.Purchasing
 {
-    public class VendorList
+    public class VendorInfo
     {
         public int VendorID { get; set; }
         public string Name { get; set; }
