@@ -46,7 +46,6 @@ namespace ERace_WebApp.SubSystems.Purchasing
                 Response.Redirect("~/Account/Login.aspx");
             }
         }
-
         protected void Select_Click(object sender, EventArgs e)
         {
             var username = User.Identity.Name;
@@ -63,14 +62,43 @@ namespace ERace_WebApp.SubSystems.Purchasing
 
 
             VendorController vendorController = new VendorController();
-            //VendorInfo vendorinfo = vendorController.List_VendorInfo(int.Parse(VendorNameDDL.SelectedValue));
+            VendorInfo vendorinfo = vendorController.List_VendorInfo(int.Parse(VendorNameDDL.SelectedValue));
             //Vendor vendorinfo = VendorController.List_VendorInfo(int.Parse(VendorNameDDL.SelectedValue));
-            Vendor vendorinfo = null;            
-            VendorInformation.Text = vendorinfo.Name + " - " + vendorinfo.Contact + " - " + vendorinfo.Phone;
+            //VendorInfo vendorinfo = null;    
             
+            VendorInformation.Text = vendorinfo.Name + " - " + vendorinfo.Contact + " - " + vendorinfo.Phone;
+            InventoryController sysmgr = new InventoryController();
+            List<InventoryList> datainfo = new List<InventoryList>();
+            List<InventoryList> filteredDatainfo = new List<InventoryList>();
+            MessageUserControl.TryRun(() =>
+            {
+                datainfo = sysmgr.GetVendorInventory(int.Parse(VendorNameDDL.SelectedValue));
+                List<int> empty = new List<int>();
+                for (int index = 0; index < 4; index++)
+                {
+                    if (datainfo[index].ProductList.Count() > 0)
+                    {
+                        filteredDatainfo.Add(datainfo[index]);
+                    }
+                }
+                if (filteredDatainfo.Count() == 0)
+                {
+                    RepeaterInventory.DataSource = "";
+                    RepeaterInventory.DataBind();
+                    throw new Exception("The vendor you selected has no vendorcatalog");
+                }
+                RepeaterInventory.DataSource = filteredDatainfo;
+                RepeaterInventory.DataBind();
+
+                OrderController OrderContoller = new OrderController();
+                OrderList Order = new OrderList();
+                Order = OrderContoller.GetVendorOrder(int.Parse(VendorNameDDL.SelectedValue), info.EmployeeID);
 
 
-        }
+
+
+            }, "Success", "VendorSelected");
+
 
 
     }

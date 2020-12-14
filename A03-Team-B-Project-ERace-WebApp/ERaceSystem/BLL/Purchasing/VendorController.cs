@@ -55,14 +55,23 @@ namespace ERaceSystem.BLL.Purchasing
         //        return result.FirstOrDefault();
         //    }
         //}
-        public Vendor List_VendorInfo(int Vendorid)
+        public VendorInfo List_VendorInfo(int Vendorid)
         {
             using (var context = new ERaceSystemContext())
             {
-                return context.Vendors.Find(Vendorid);
+                var result = from x in context.Vendors
+                             where x.VendorID == Vendorid
+                             select new VendorInfo
+                             {
+                                 VendorID = x.VendorID,
+                                 Name = x.Name,
+                                 Address = x.Address + " " + x.City,
+                                 Phone = x.Phone,
+                                 Contact = x.Contact
+                             };
+                return result.FirstOrDefault();
             }
+
+
         }
-
-
     }
-}

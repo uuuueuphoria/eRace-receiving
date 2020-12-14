@@ -38,6 +38,53 @@ namespace ERaceSystem.BLL.Purchasing
                 return exist;
             }
         }
-
+        public OrderList GetVendorOrder(int vendorid, int employeeid)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var exists = (from x in context.Orders
+                              where x.VendorID == vendorid && x.OrderNumber == null
+                              select x).FirstOrDefault();
+                var exist = new OrderList();
+                if (exists == null)
+                {
+                    Order newOrder = new Order();
+                    newOrder.OrderNumber = null;
+                    newOrder.OrderDate = null;
+                    newOrder.EmployeeID = employeeid;
+                    newOrder.TaxGST = 0;
+                    newOrder.SubTotal = 0;
+                    newOrder.VendorID = vendorid;
+                    newOrder.Closed = false;
+                    newOrder.Comment = null;
+                    context.Orders.Add(newOrder);
+                    context.SaveChanges();
+                }
+                exist = (from x in context.Orders
+                         where x.VendorID == vendorid && x.OrderNumber == null
+                         select new OrderList
+                         {
+                             OrderID = x.OrderID,
+                             OrderNumber = x.OrderNumber,
+                             OrderDate = x.OrderDate,
+                             EmployeeID = x.EmployeeID,
+                             TaxGST = x.TaxGST,
+                             SubTotal = x.SubTotal,
+                             VendorID = x.VendorID,
+                             Closed = x.Closed,
+                             Comment = x.Comment,
+                             ItemList = (from y in x.OrderDetails
+                                         select new OrderItemList
+                                         {
+                                             OrderDetailID = y.OrderDetailID,
+                                             Product = y.Product.ItemName,
+                                             OrderQty = y.Quantity,
+                                             UnitSize = y.OrderUnitSize,
+                                             UnitCost = y.Cost
+                                         }).ToList()
+                         }).FirstOrDefault();
+                return exist;
+            }
+        }
     }
 }

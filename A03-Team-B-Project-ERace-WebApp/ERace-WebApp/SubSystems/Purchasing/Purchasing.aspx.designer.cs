@@ -69,6 +69,42 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Button Select;
 
         /// <summary>
+        /// PlaceOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button PlaceOrder;
+
+        /// <summary>
+        /// Save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Save;
+
+        /// <summary>
+        /// Cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Cancel;
+
+        /// <summary>
+        /// Delete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Delete;
+
+        /// <summary>
         /// VendorInformation control.
         /// </summary>
         /// <remarks>
@@ -78,13 +114,85 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Label VendorInformation;
 
         /// <summary>
-        /// RepeaterInventory control.
+        /// SubtotalText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterInventory;
+        protected global::System.Web.UI.WebControls.Label SubtotalText;
+
+        /// <summary>
+        /// Subtotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Subtotal;
+
+        /// <summary>
+        /// Comments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Comments;
+
+        /// <summary>
+        /// TaxText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TaxText;
+
+        /// <summary>
+        /// TotalText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalText;
+
+        /// <summary>
+        /// Tax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Tax;
+
+        /// <summary>
+        /// Total control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Total;
+
+        /// <summary>
+        /// ListView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView ListView1;
+
+        /// <summary>
+        /// Repeater1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
 
         /// <summary>
         /// VendorNameDDLODS control.
