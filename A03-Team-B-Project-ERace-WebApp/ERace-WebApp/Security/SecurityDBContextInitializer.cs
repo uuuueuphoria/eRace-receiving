@@ -105,7 +105,7 @@ namespace ERace_WebApp.Security
 
             //Add Racing Coordinator employee
             employeeUser = "MartaThargg";
-            employeeRole = ConfigurationManager.AppSettings["raceCoordinatoreRole"];
+            employeeRole = ConfigurationManager.AppSettings["raceCoordinatorRole"];
             employeeEmail = "Marta.Thargg@ERace.ca";
             employeePassword = ConfigurationManager.AppSettings["newUserPassword"];
             employeeid = 5;
