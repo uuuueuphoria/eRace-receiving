@@ -18,58 +18,68 @@ namespace ERaceSystem.BLL
     [DataObject]
     public class StoreRefundController
     {
-        //[DataObjectMethod(DataObjectMethodType.Select,false)]
-        //public InvoiceList Invoice_FindById(int invoiceid)
-        //{
-        //    using (var context = new ERaceSystemContext())
-        //    {
-        //        var invoice = (from inv in context.Invoices
-        //                      where inv.InvoiceID == invoiceid
-        //                      select new InvoiceList
-        //                      {
-        //                         InvoiceID=inv.InvoiceID,
-        //                         InvoiceDate=inv.InvoiceDate,
-        //                         //EmployeeID = inv.EmployeeID,
-        //                         SubTotal = inv.SubTotal,
-        //                         GST = inv.GST,
-        //                         Total = inv.Total
-        //                      }).FirstOrDefault();
+        [DataObjectMethod(DataObjectMethodType.Select,false)]
+        public RefundInvoice Invoice_FindById(int invoiceid)
+        {           
 
-        //        List<InvoiceItem> invoicedetails = new List<InvoiceItem>();
-        //        var detail = (from det in context.InvoiceDetails
-        //                          where det.InvoiceID == invoiceid
-        //                          select new InvoiceItem
-        //                          {
-        //                              InvoiceDetailID = det.InvoiceDetailID,
-        //                              InvoiceID = det.InvoiceID,
-        //                              ProductID = det.ProductID,
-        //                              Quantity = det.Quantity,
-        //                              Price = det.Price
-        //                          }).ToList();
-        //        Invoice result = new Invoice();
+            using (var context = new ERaceSystemContext())
+            {
+                RefundInvoice invoice = new RefundInvoice();
+                invoice = (from inv in context.Invoices
+                           where inv.InvoiceID == invoiceid
+                           select new RefundInvoice
+                           {
+                               InvoiceID = inv.InvoiceID,
+                               InvoiceDate = inv.InvoiceDate,
+                               EmployeeID = inv.EmployeeID,
+                               SubTotal = inv.SubTotal,
+                               GST = inv.GST,
+                               Total = inv.Total
+                           }).FirstOrDefault();
+                
+                return invoice;
+            }
+        }
 
-        //        result.InvoiceID = invoice.InvoiceID;
-        //        result.InvoiceDate = invoice.InvoiceDate;
-        //        //EmployeeID = inv.EmployeeID,
-        //        result.SubTotal = invoice.SubTotal;
-        //        result.GST = invoice.GST;
-        //        result.Total = invoice.Total;
-        //        result.InvoiceDetails = new List<InvoiceDetail>();
-        //        foreach (InvoiceItem item in detail)
-        //        {
-        //            InvoiceDetail refunditem = new InvoiceDetail();
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<RefundItem> Invoicedetails_FindById(int invoiceid)
+        {
 
-        //            refunditem.InvoiceDetailID= item.InvoiceDetailID;
-        //            refunditem.InvoiceID = item.InvoiceID;
-        //            refunditem.ProductID = item.ProductID;
-        //            refunditem.Quantity = item.Quantity;
-        //            refunditem.Price = item.Price;
+            using (var context = new ERaceSystemContext())
+            {
+                List<RefundItem> invoicedetails = null;
 
-        //            result.InvoiceDetails.Add(refunditem);
-        //        }
               
-        //        return result;
-        //    }
-        //}
+                RefundItem detail = new RefundItem();
+
+                invoicedetails = (from det in context.InvoiceDetails
+                                  where det.InvoiceID == invoiceid
+                                  select new RefundItem
+                                  {
+                                      InvoiceID = det.InvoiceID,
+                                      ProductID = det.ProductID,
+                                      ItemName = det.Product.ItemName,
+                                      Quantity = det.Quantity,
+                                      Price = det.Price,
+                                      Reason = "",
+                                      RestockCharge = det.Product.ReStockCharge
+                                  }).ToList();
+
+                foreach (RefundItem item in invoicedetails)
+                {
+                    detail = new RefundItem();
+                    detail.InvoiceID = item.InvoiceID;
+                    detail.ProductID = item.ProductID;
+                    detail.ItemName = item.ItemName;
+                    detail.Quantity = item.Quantity;
+                    detail.Price = item.Price;
+                    detail.Reason = "";
+                    detail.RestockCharge = item.RestockCharge;
+                    detail.Amount = item.Price * item.Quantity;
+                    invoicedetails.Add(detail);
+                }
+                return invoicedetails;
+            }
+        }
     }
 }

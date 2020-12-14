@@ -26,6 +26,10 @@
         </div>
         <div class="row">
             <div class="row">
+                            <asp:Label ID="Label2" runat="server" Text="New Invoice #:   "></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="InvoiceID" runat="server" Font-Bold="false" Font-Underline="false"></asp:Label>
+                        </div>
+            <div class="row">
                 <asp:DropDownList ID="CategoryDDL" runat="server" DataSourceID="CategoryODS" DataTextField="DisplayText" DataValueField="ValueId"
                      CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="CategoryDDL_SelectedIndexChanged" Width="300px">
                     <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
