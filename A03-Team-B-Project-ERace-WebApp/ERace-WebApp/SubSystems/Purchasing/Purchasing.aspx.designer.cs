@@ -87,15 +87,6 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Button Save;
 
         /// <summary>
-        /// Cancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
-
-        /// <summary>
         /// Delete control.
         /// </summary>
         /// <remarks>
@@ -105,6 +96,15 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.Button Delete;
 
         /// <summary>
+        /// Cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Cancel;
+
+        /// <summary>
         /// VendorInformation control.
         /// </summary>
         /// <remarks>
@@ -112,6 +112,15 @@ namespace ERace_WebApp.SubSystems.Purchasing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label VendorInformation;
+
+        /// <summary>
+        /// Comments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Comments;
 
         /// <summary>
         /// SubtotalText control.
@@ -130,15 +139,6 @@ namespace ERace_WebApp.SubSystems.Purchasing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Subtotal;
-
-        /// <summary>
-        /// Comments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Comments;
 
         /// <summary>
         /// TaxText control.
@@ -177,13 +177,13 @@ namespace ERace_WebApp.SubSystems.Purchasing
         protected global::System.Web.UI.WebControls.TextBox Total;
 
         /// <summary>
-        /// ListView1 control.
+        /// ListView_order control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListView1;
+        protected global::System.Web.UI.WebControls.ListView ListView_order;
 
         /// <summary>
         /// RepeaterInventory control.

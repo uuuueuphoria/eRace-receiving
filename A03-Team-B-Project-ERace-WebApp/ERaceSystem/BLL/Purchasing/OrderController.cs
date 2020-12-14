@@ -86,5 +86,69 @@ namespace ERaceSystem.BLL.Purchasing
                 return exist;
             }
         }
+        public void UpdateOrder(int vendorid, OrderList itemList)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var orderDetails = from x in context.OrderDetails
+                                   where x.Order.VendorID == vendorid && x.Order.OrderNumber == null
+                                   select x;
+                foreach (var item in orderDetails)
+                {
+                    context.OrderDetails.Remove(item);
+                }
+                var order = (from x in context.Orders
+                             where x.VendorID == vendorid && x.OrderNumber == null
+                             select x).FirstOrDefault();
+                order.Comment = itemList.Comment;
+                order.SubTotal = itemList.SubTotal;
+                order.TaxGST = itemList.SubTotal * (decimal)0.05;
+
+                foreach (var item in itemList.ItemList)
+                {
+                    OrderDetail orderDetailToAdd = new OrderDetail();
+                    orderDetailToAdd.OrderID = order.OrderID;
+                    var selectProduct = (from x in context.Products
+                                         where x.ItemName == item.Product
+                                         select x.ProductID).FirstOrDefault();
+                    orderDetailToAdd.ProductID = selectProduct;
+                    orderDetailToAdd.Quantity = item.OrderQty;
+                    orderDetailToAdd.OrderUnitSize = item.UnitSize;
+                    orderDetailToAdd.Cost = item.UnitCost;
+                    context.OrderDetails.Add(orderDetailToAdd);
+                }
+                context.Entry(order).Property(y => y.Comment).IsModified = true;
+                context.Entry(order).Property(y => y.SubTotal).IsModified = true;
+                context.Entry(order).Property(y => y.TaxGST).IsModified = true;
+                context.SaveChanges();
+            }
+        }
+        public void RemoveOrder(int vendorid)
+        {
+            using (var context = new ERaceSystemContext())
+            {
+                var orderDetails = from x in context.OrderDetails
+                                   where x.Order.VendorID == vendorid && x.Order.OrderNumber == null
+                                   select x;
+                foreach (var item in orderDetails)
+                {
+                    context.OrderDetails.Remove(item);
+                }
+                var order = (from x in context.Orders
+                             where x.VendorID == vendorid && x.OrderNumber == null
+                             select x).FirstOrDefault();
+                if (order == null)
+                {
+                    throw new Exception("Nothing to delete");
+                }
+                else
+                {
+                    context.Orders.Remove(order);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
     }
 }
