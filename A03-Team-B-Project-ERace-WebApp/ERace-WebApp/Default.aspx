@@ -65,11 +65,9 @@
             </ul>
             <p>Known bug list</p>
             <ul>
-                <li>to be filled in</li>
-                <li>to be filled in</li>
-                <li>to be filled in</li>
+                <li>Nothing so far</li>
             </ul>
-            <a class="btn btn-default" href="SubSystems/Receiving/Default.aspx">Receiving Page &raquo;</a>
+            <a class="btn btn-default" href="SubSystems/Receiving/DefaultReceiving.aspx">Receiving Page &raquo;</a>
 
         </div>
 </div>       
