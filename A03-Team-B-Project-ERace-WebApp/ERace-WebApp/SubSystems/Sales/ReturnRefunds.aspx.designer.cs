@@ -141,15 +141,6 @@ namespace ERace_WebApp.SubSystems.Sales
         protected global::System.Web.UI.WebControls.Label RefundTotal;
 
         /// <summary>
-        /// RefundButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button RefundButton;
-
-        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>

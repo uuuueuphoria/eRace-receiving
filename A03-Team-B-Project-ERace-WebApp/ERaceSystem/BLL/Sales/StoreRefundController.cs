@@ -18,7 +18,6 @@ namespace ERaceSystem.BLL
     [DataObject]
     public class StoreRefundController
     {
-        [DataObjectMethod(DataObjectMethodType.Select,false)]
         public RefundInvoice Invoice_FindById(int invoiceid)
         {           
 

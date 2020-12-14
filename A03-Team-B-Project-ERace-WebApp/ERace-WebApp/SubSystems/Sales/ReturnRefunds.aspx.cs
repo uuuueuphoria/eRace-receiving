@@ -86,7 +86,12 @@ namespace ERace_WebApp.SubSystems.Sales
 
                     invoice = controller.Invoice_FindById(int.Parse(InvoiceArg.Text));
 
-                    if (invoice.InvoiceID <= 0)
+                    if (invoice.InvoiceID==null)
+                    {
+                        MessageUserControl.ShowInfo("Invoice Search",
+                   "Must enter an invoice number.");
+                    }
+                    if (invoice.InvoiceID <=0)
                     {
                         MessageUserControl.ShowInfo("Invoice Search",
                    "Must enter valid invoice number.");
@@ -136,7 +141,11 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void RefundButton_Click(object sender, EventArgs e)
         {
-           
+            CalculateTotals();
+            //Validate Items in the GV
+
+            //process Refund transaction
+
         }
     }
     

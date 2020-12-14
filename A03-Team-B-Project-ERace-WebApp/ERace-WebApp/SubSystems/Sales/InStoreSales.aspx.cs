@@ -273,8 +273,6 @@ namespace ERace_WebApp.SubSystems.Sales
 
         protected void Clear_Click(object sender, EventArgs e)
         {
-            if (InvoiceDetailGV.Rows.Count > 0)
-            {
                 //delete invoice items
                 InvoiceDetailGV.DataSource = null;
                 InvoiceDetailGV.DataBind();
@@ -284,9 +282,7 @@ namespace ERace_WebApp.SubSystems.Sales
                 Tax.Text = "0.00";
                 Total.Text = "0.00";
 
-                ProductDDL.SelectedIndex = 0;
-                CategoryDDL.SelectedIndex = 0;
-            }
+         
         }
 
         protected void PayButton_Click(object sender, EventArgs e)

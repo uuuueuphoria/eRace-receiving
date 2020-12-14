@@ -101,9 +101,9 @@
             </div>        
         </div> 
      <div class="row">
-            <asp:Button ID="RefundButton" runat="server" Text="Refund: Cash/Debit" 
+           <%-- <asp:Button ID="RefundButton" runat="server" Text="Refund: Cash/Debit" 
                 CssClass="btn btn-secondary btn-xs"
-                style="color:antiquewhite; background-color:darkgreen; font-size:1em;" OnClick="RefundButton_Click" />
+                style="color:antiquewhite; background-color:darkgreen; font-size:1em;" OnClick="RefundButton_Click" />--%>
         </div>
           <div class="row">              
               <asp:Label ID="Label1" runat="server" Text ="Refund Invoice #:   "></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
