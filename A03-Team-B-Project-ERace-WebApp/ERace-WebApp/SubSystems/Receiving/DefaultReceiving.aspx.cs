@@ -250,9 +250,9 @@ namespace ERace_WebApp.SubSystems.Receiving
             string reason = ForceCloseReason.Text;
             int OrderID = int.Parse(PurchaseOrderDropDownList.SelectedValue);
             List<ProductInventory> items = new List<ProductInventory>();
-            ProductInventory item = new ProductInventory();
             foreach(GridViewRow row in PurchaseOrderDisplay.Rows)
             {
+                ProductInventory item = new ProductInventory();
                 item.OrderDetailID = int.Parse((row.FindControl("OrderDetailID") as Label).Text);
                 item.QtyOutstanding = int.Parse((row.FindControl("QtyOutstanding") as Label).Text);
                 items.Add(item);
